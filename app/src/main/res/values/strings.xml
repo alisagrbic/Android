@@ -5,4 +5,6 @@
     <string name="Username">Username</string>
     <string name="Email">Email</string>
     <string name="Password">Password</string>
+    <string name="UsernameLogin">Username</string>
+    <string name="PasswordLogin">Password</string>
 </resources>
