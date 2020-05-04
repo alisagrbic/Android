@@ -7,4 +7,6 @@
     <string name="Password">Password</string>
     <string name="UsernameLogin">Username</string>
     <string name="PasswordLogin">Password</string>
+    <string name="AppTheme">App theme</string>
+    <string name="perimeters">Perimeter</string>
 </resources>
