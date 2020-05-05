@@ -22,21 +22,21 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-@Database(entities = {
-        User.class,
-        Ticket.class,
-        Notification.class,
-        Festival.class,
-        Dj.class,
-        Artist.class,
-        UserFestival.class,
-        DjFestival.class,
-        ArtistFestival.class},
+@Database(entities = {  User.class,
+                        Ticket.class,
+                        Notification.class,
+                        Festival.class,
+                        Dj.class,
+                        Artist.class,
+                        UserFestival.class,
+                        DjFestival.class,
+                        ArtistFestival.class
+        },
         version = 12,
         exportSchema = false)
 public abstract class DatabaseHelper extends RoomDatabase {
 
-    private static final String DATABASE_NAME = "dance_world_db";
+    private static final String DATABASE_NAME = "database.db";
     public static  DatabaseHelper instance;
 
     public static synchronized DatabaseHelper getInstance(Context context) {
