@@ -34,7 +34,7 @@
             android:layout_gravity="center"
             android:textSize="25dp"
             android:text="DANCE WORLD"
-            android:textAppearance="bold"
+
             android:textStyle="italic"
             tools:layout_editor_absoluteX="166dp"
             tools:layout_editor_absoluteY="122dp" />
