@@ -7,4 +7,8 @@
     <string name="Password">Password</string>
     <string name="UsernameLogin">Username</string>
     <string name="PasswordLogin">Password</string>
+    <string name="title_festival_list">Festivals</string>
+    <string name="title_festival_detail">Festival Detail</string>
+    <string name="title_masterdetail_list">Master/Details</string>
+    <string name="title_masterdetail_detail">Master/Detail Detail</string>
 </resources>
