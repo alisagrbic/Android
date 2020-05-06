@@ -20,7 +20,9 @@
 
         <activity android:name=".NavigationActivity"/>
         <activity android:name=".MapsActivity" />
+        <activity android:name=".DetailActivity" />
         <activity android:name=".RegisterActivity" />
+        <activity android:name=".MasterViewActivity" />
         <activity android:name=".SettingsActivity" />
             <activity android:name=".MainActivity" >
             <intent-filter>
