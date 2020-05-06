@@ -10,5 +10,6 @@
     <string name="AppTheme">App theme</string>
     <string name="perimeters">Perimeter</string>
     <string name="ToolbarDanceWorld">DANCE WORLD</string>
+    <string name="welcometext">Dance all over the world! Want to know more?</string>
 
 </resources>
