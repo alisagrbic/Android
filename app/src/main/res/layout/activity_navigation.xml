@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/drawer_layout"
     android:fitsSystemWindows="true"
-    tools:context=".MasterViewActivity"
+    tools:context=".NavigationActivity"
     tools:openDrawer="start">
 
     <LinearLayout
@@ -27,7 +27,7 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/fragment" />
+            android:id="@+id/fragment_container" />
     </LinearLayout>
 
     <com.google.android.material.navigation.NavigationView

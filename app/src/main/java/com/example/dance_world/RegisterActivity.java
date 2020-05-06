@@ -2,7 +2,9 @@ package com.example.dance_world;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -21,6 +23,15 @@ public class RegisterActivity extends AppCompatActivity {
         Email = findViewById(R.id.Email);
         Password = findViewById(R.id.Password);
 
+        AddUserButton = findViewById(R.id.Login);
+
+        AddUserButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RegisterActivity.this, NavigationActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 }

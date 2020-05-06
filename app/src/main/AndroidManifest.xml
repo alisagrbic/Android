@@ -18,10 +18,11 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCdqs9Bo2ZXij3n1pfDtJIR8aHaxW8iaVo" />
 
+        <activity android:name=".NavigationActivity"/>
         <activity android:name=".MapsActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".SettingsActivity" />
-        <activity android:name=".MainActivity">
+            <activity android:name=".MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
