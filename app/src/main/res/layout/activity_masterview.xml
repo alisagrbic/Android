@@ -9,62 +9,12 @@
         layout="@layout/activity_toolbar"
         />
 
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="140dp"
+        android:id="@+id/ListView"></ListView>
 
-    <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="400dp"
-        android:layout_height="250dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="66dp"
-        android:layout_marginTop="100dp"
-        android:src="@drawable/rovinj"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
 
-    <Button
-        android:id="@+id/ReciveNotification"
-        android:layout_width="405dp"
-        android:layout_height="49dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="66dp"
-        android:layout_marginTop="40dp"
-        android:text="Recive Notification"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
-
-    <ImageButton
-        android:id="@+id/imageButton1"
-        android:layout_width="400dp"
-        android:layout_height="250dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="66dp"
-        android:layout_marginTop="330dp"
-        android:src="@drawable/rovinj2"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ReciveNotification" />
-
-    <Button
-        android:id="@+id/ReciveNotification1"
-        android:layout_width="405dp"
-        android:layout_height="49dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="66dp"
-        android:layout_marginTop="600dp"
-        android:text="Recive Notification"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
-    />
 </androidx.constraintlayout.widget.ConstraintLayout>
 
