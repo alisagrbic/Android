@@ -14,19 +14,18 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class ArtistsActivity extends AppCompatActivity {
+public class WorkshopActivity extends AppCompatActivity {
 
     ListView listView;
-    String mTitle[] = {"Daniel & Desiree", "Ronald & Alba", "Korke & Judit", "Ataca & La Alemana",
-                        "Luis & Andrea"};
-    String mDescription[] = {"Bachata sensual", "Bachata", "Salsa", "Bachata modern", "Kizomba"};
-    int images[] = {R.drawable.daniel_desiree, R.drawable.ronald_alba, R.drawable.korke_judit,
-            R.drawable.ataca_laalemana, R.drawable.luis_andrea};
+    String mTitle[] = {"Kizomba", "Sensual Bachata", "Kizomba Fusion"};
+    String mDescription[] = {"Slow moves, slides and lifts \n\n19. June 13:00-14:00",
+    "Fundamentals \n\n19. June 14:10-15:10", "Fundamentals and evlolution \n\n19. June 15:20-16:20"};
+    int images[] = {R.drawable.kizomba, R.drawable.bachata, R.drawable.kiz};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_artists);
+        setContentView(R.layout.activity_workshop);
 
         listView = findViewById(R.id.ListView);
 
@@ -35,7 +34,7 @@ public class ArtistsActivity extends AppCompatActivity {
         listView.setAdapter(adapter);
     }
 
-    class MyAdapter extends ArrayAdapter<String>{
+    class MyAdapter extends ArrayAdapter<String> {
         Context context;
         String rTitle[];
         String rDescription[];
