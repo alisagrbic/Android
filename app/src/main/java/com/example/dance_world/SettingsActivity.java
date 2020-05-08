@@ -16,7 +16,7 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
 
     Spinner theme_spinner, perimeter_spinner, dance_spinner;
     Button Apply;
-    ImageButton liness;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +27,7 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
         perimeter_spinner = findViewById(R.id.perimeter_spinner);
         dance_spinner = findViewById(R.id.dance_spinner);
         Apply = findViewById(R.id.Apply);
-        liness = findViewById(R.id.liness);
+
 
         String[] theme = new String[]{ "App theme", "White", "Black"};
         String[] perimeter = new String[]{ "Perimeter", "50km", "100km", "500km", "1000km"};
@@ -46,14 +46,6 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SettingsActivity.this, MasterViewActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        liness.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SettingsActivity.this, NavigationActivity.class);
                 startActivity(intent);
             }
         });

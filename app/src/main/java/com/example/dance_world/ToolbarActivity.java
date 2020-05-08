@@ -7,30 +7,30 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 
-public class DetailActivity extends AppCompatActivity {
+public class ToolbarActivity extends AppCompatActivity {
 
-    ImageButton settings, liness;
+    ImageButton liness, settings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail);
+        setContentView(R.layout.activity_toolbar);
 
-        settings = findViewById(R.id.settings);
         liness = findViewById(R.id.liness);
-
-        settings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(DetailActivity.this, SettingsActivity.class);
-                startActivity(intent);
-            }
-        });
+        settings = findViewById(R.id.settings);
 
         liness.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DetailActivity.this, NavigationActivity.class);
+                Intent intent = new Intent(ToolbarActivity.this, NavigationActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ToolbarActivity.this, SettingsActivity.class);
                 startActivity(intent);
             }
         });
