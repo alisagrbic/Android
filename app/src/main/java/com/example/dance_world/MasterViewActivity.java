@@ -34,7 +34,7 @@ public class MasterViewActivity  extends AppCompatActivity {
 
 
     int images[] = {R.drawable.rovinj, R.drawable.rovinj2};
-    String mTitle[] = {"Receive notifications for this festival?", "Receive notifications?"};
+    String mTitle[] = {"Receive notifications?", "Receive notifications?"};
     int buttons[] = {R.id.notification, R.id.notification};
 
     @Override
@@ -56,7 +56,7 @@ public class MasterViewActivity  extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Intent intent = new Intent(MasterViewActivity.this, DetailActivity.class);
                     startActivity(intent);
-                Toast.makeText(MasterViewActivity.this, "Click", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(MasterViewActivity.this, "Click", Toast.LENGTH_SHORT).show();
             }
         });
 
