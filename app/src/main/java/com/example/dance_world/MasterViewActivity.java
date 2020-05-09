@@ -56,7 +56,6 @@ public class MasterViewActivity  extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Intent intent = new Intent(MasterViewActivity.this, DetailActivity.class);
                     startActivity(intent);
-               // Toast.makeText(MasterViewActivity.this, "Click", Toast.LENGTH_SHORT).show();
             }
         });
 

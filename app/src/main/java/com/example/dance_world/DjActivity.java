@@ -18,7 +18,7 @@ public class DjActivity extends AppCompatActivity {
     ListView listView;
     String mTitle[] = {"DJ Khalid", "DJ El Tiquere", "DJ Latin Master", "DJ X-tra"};
     String mDescription[] = {"Bachata", "Bachata", "Bachata, Salsa Romantica", "Kizomba"};
-    int images = R.drawable.dj;
+    int images = R.drawable.dj2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
