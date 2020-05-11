@@ -28,7 +28,8 @@ public class RegisterActivity extends AppCompatActivity {
         AddUserButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(RegisterActivity.this, NavigationActivity.class);
+
+                Intent intent = new Intent(RegisterActivity.this, MasterViewActivity.class);
                 startActivity(intent);
             }
         });

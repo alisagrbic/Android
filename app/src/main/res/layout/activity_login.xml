@@ -60,7 +60,6 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <Button
-        android:id="@+id/Login"
         android:layout_width="234dp"
         android:layout_height="42dp"
         android:layout_marginStart="77dp"
@@ -71,13 +70,14 @@
         android:layout_marginBottom="160dp"
         android:ems="10"
         android:text="Login"
+        android:id="@+id/Login"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <TextView
-        android:id="@+id/textViewLogin"
+        android:id="@+id/textViewLoginPage"
         android:layout_width="206dp"
         android:layout_height="23dp"
         android:layout_marginStart="102dp"
@@ -106,7 +106,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewLogin" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewLoginPage" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
