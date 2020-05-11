@@ -35,7 +35,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
     public void onBackPressed() {
         if(drawer.isDrawerOpen(GravityCompat.START)){
             drawer.closeDrawer(GravityCompat.START);
-       }
+        }
         else {
             super.onBackPressed();
         }
@@ -45,16 +45,18 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()){
-            case R.id.nav_festivals:
-                startActivity(new Intent(getApplicationContext(), MasterViewActivity.class));
+          /*  case R.id.nav_festivals:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new FestivalsFragment()).commit();
                 break;
             case R.id.nav_map:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new FragmentMaps()).commit();
                      break;
             case R.id.nav_favorites:
-                startActivity(new Intent(getApplicationContext(), FavoritesFragment.class));
-                break;
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new FavoritesFragment()).commit();
+                break;*/
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;

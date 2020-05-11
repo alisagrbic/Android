@@ -3,6 +3,7 @@ package com.example.dance_world;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -10,6 +11,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -19,15 +21,12 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.Toolbar;
-
-import com.example.dance_world.database.DatabaseHelper;
 import com.google.android.material.navigation.NavigationView;
 
 
-public class MasterViewActivity  extends AppCompatActivity {
+public class MasterViewActivity  extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    private DrawerLayout drawer;
     ImageButton settings, liness;
     ListView listView;
 
@@ -50,12 +49,17 @@ public class MasterViewActivity  extends AppCompatActivity {
         MyAdapter adapter = new MyAdapter(this, mTitle, buttons, images);
         listView.setAdapter(adapter);
 
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        drawer = findViewById(R.id.drawerr_layout);
+
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Intent intent = new Intent(MasterViewActivity.this, DetailActivity.class);
                     startActivity(intent);
-               // Toast.makeText(MasterViewActivity.this, "Click", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -76,6 +80,17 @@ public class MasterViewActivity  extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(drawer.isDrawerOpen(GravityCompat.START)){
+            drawer.closeDrawer(GravityCompat.START);
+        }
+        else {
+            super.onBackPressed();
+        }
+        super.onBackPressed();
     }
 
     class MyAdapter extends ArrayAdapter<String> {
@@ -109,6 +124,26 @@ public class MasterViewActivity  extends AppCompatActivity {
 
             return row;
         }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        switch (menuItem.getItemId()){
+            case R.id.nav_festivals:
+                Intent intent = new Intent(MasterViewActivity.this, MasterViewActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.nav_map:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new FragmentMaps()).commit();
+                     break;
+            case R.id.nav_favorites:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new FavoritesFragment()).commit();
+                break;
+        }
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 
 }
