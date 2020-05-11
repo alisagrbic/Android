@@ -53,7 +53,7 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        drawer = findViewById(R.id.drawerr_layout);
+        drawer = findViewById(R.id.drawer_layout);
 
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
