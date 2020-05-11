@@ -29,7 +29,6 @@ import com.google.android.material.navigation.NavigationView;
 public class MasterViewActivity  extends AppCompatActivity {
 
     ImageButton settings, liness;
-
     ListView listView;
 
 

@@ -46,16 +46,14 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()){
             case R.id.nav_festivals:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new FestivalsFragment()).commit();
+                startActivity(new Intent(getApplicationContext(), MasterViewActivity.class));
                 break;
             case R.id.nav_map:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new FragmentMaps()).commit();
                      break;
             case R.id.nav_favorites:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new FavoritesFragment()).commit();
+                startActivity(new Intent(getApplicationContext(), FavoritesFragment.class));
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);

@@ -22,7 +22,7 @@ import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
-    ImageButton imageButtonWelcome;
+    Button loginMain;
   //  private DrawerLayout drawer;
 
     @Override
@@ -33,9 +33,9 @@ public class MainActivity extends AppCompatActivity {
      //   Toolbar toolbar = findViewById(R.id.toolbar);
     //    setSupportActionBar(toolbar);
 
-        imageButtonWelcome = findViewById(R.id.imageButtonWelcome);
+        loginMain = findViewById(R.id.loginMain);
 
-        imageButtonWelcome.setOnClickListener(new View.OnClickListener() {
+        loginMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);

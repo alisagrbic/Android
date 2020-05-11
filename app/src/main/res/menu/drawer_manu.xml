@@ -21,7 +21,7 @@
             android:title="Favorites" />
     </group>
 
- <!--   <item android:title="Settings">
+  <!--  <item android:title="Settings">
         <manu>
             <item
                 android:id="@+id/nav_settings"
@@ -29,5 +29,5 @@
                 android:title="Settings" />
         </manu>
     </item>
-    -->
+    !-->
 </menu>

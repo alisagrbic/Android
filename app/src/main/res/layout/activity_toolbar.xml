@@ -24,7 +24,8 @@
             android:layout_height="55dp"
             android:layout_gravity="left"
             android:scaleType="fitCenter"
-            android:src="@drawable/liness" />
+            android:src="@drawable/liness"
+            />
 
         <TextView
             android:id="@+id/textView"

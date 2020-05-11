@@ -21,9 +21,9 @@
         <activity android:name=".MapsActivity" />
         <activity android:name=".DetailActivity" />
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".MasterViewActivity" />
         <activity android:name=".SettingsActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"/>
+        <activity android:name=".MasterViewActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
