@@ -3,11 +3,14 @@ package com.example.dance_world;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -18,11 +21,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.dance_world.database.entities.Artist;
+import com.google.android.material.navigation.NavigationView;
 
-public class DetailActivity extends AppCompatActivity {
+public class DetailActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     ImageButton settings, liness;
     ListView listView;
+    private DrawerLayout drawer;
 
 
     int images[] = {R.drawable.artists, R.drawable.dj2, R.drawable.workshop};
@@ -40,6 +45,11 @@ public class DetailActivity extends AppCompatActivity {
         //create adapter instance
         MyAdapter adapter = new MyAdapter(this, mTitle, images);
         listView.setAdapter(adapter);
+
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        drawer = findViewById(R.id.drawerr_layout);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -104,5 +114,25 @@ public class DetailActivity extends AppCompatActivity {
 
             return row;
         }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        switch (menuItem.getItemId()){
+            case R.id.nav_festivals:
+                Intent intent = new Intent(DetailActivity.this, MasterViewActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.nav_map:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new FragmentMaps()).commit();
+                break;
+            case R.id.nav_favorites:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new FavoritesFragment()).commit();
+                break;
+        }
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 }

@@ -1,9 +1,13 @@
 package com.example.dance_world;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -12,11 +16,13 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-public class SettingsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+import com.google.android.material.navigation.NavigationView;
+
+public class SettingsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, NavigationView.OnNavigationItemSelectedListener {
 
     Spinner theme_spinner, perimeter_spinner, dance_spinner;
     Button Apply;
-
+    private DrawerLayout drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +33,11 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
         perimeter_spinner = findViewById(R.id.perimeter_spinner);
         dance_spinner = findViewById(R.id.dance_spinner);
         Apply = findViewById(R.id.Apply);
+
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        drawer = findViewById(R.id.drawerr_layout);
 
 
         String[] theme = new String[]{ "App theme", "White", "Black"};
@@ -61,5 +72,25 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        switch (menuItem.getItemId()){
+            case R.id.nav_festivals:
+                Intent intent = new Intent(SettingsActivity.this, MasterViewActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.nav_map:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new FragmentMaps()).commit();
+                break;
+            case R.id.nav_favorites:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new FavoritesFragment()).commit();
+                break;
+        }
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 }
