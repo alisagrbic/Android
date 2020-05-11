@@ -25,7 +25,7 @@ import com.google.android.material.navigation.NavigationView;
 
 public class DetailActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
-    ImageButton settings, liness;
+    ImageButton settings, liness, imageHeart;
     ListView listView;
     private DrawerLayout drawer;
 
@@ -41,6 +41,7 @@ public class DetailActivity extends AppCompatActivity implements NavigationView.
         settings = findViewById(R.id.settings);
         liness = findViewById(R.id.liness);
         listView = findViewById(R.id.ListView);
+        imageHeart = findViewById(R.id.heart);
 
         //create adapter instance
         MyAdapter adapter = new MyAdapter(this, mTitle, images);
@@ -81,6 +82,14 @@ public class DetailActivity extends AppCompatActivity implements NavigationView.
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(DetailActivity.this, NavigationActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        imageHeart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DetailActivity.this, FavoritesFragment.class);
                 startActivity(intent);
             }
         });

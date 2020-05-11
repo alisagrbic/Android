@@ -23,6 +23,7 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
     Spinner theme_spinner, perimeter_spinner, dance_spinner;
     Button Apply;
     private DrawerLayout drawer;
+    ImageButton settings, liness, imageHeart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,9 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
         perimeter_spinner = findViewById(R.id.perimeter_spinner);
         dance_spinner = findViewById(R.id.dance_spinner);
         Apply = findViewById(R.id.Apply);
+        settings = findViewById(R.id.settings);
+        liness = findViewById(R.id.liness);
+        imageHeart = findViewById(R.id.heart);
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -57,6 +61,31 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SettingsActivity.this, MasterViewActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+        liness.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SettingsActivity.this, NavigationActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SettingsActivity.this, SettingsActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        imageHeart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SettingsActivity.this, FavoritesFragment.class);
                 startActivity(intent);
             }
         });

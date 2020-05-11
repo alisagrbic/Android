@@ -27,7 +27,7 @@ import com.google.android.material.navigation.NavigationView;
 public class MasterViewActivity  extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout drawer;
-    ImageButton settings, liness;
+    ImageButton settings, liness, imageHeart;
     ListView listView;
 
 
@@ -44,6 +44,7 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
         settings = findViewById(R.id.settings);
         liness = findViewById(R.id.liness);
         listView = findViewById(R.id.ListView);
+        imageHeart = findViewById(R.id.heart);
 
         //create adapter instance
         MyAdapter adapter = new MyAdapter(this, mTitle, buttons, images);
@@ -76,6 +77,14 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MasterViewActivity.this, SettingsActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        imageHeart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MasterViewActivity.this, FavoritesFragment.class);
                 startActivity(intent);
             }
         });
@@ -138,7 +147,8 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
                         new FragmentMaps()).commit();
                      break;
             case R.id.nav_favorites:
-                startActivity(new Intent(getApplicationContext(), FavoritesFragment.class));
+                Intent intentFav = new Intent(MasterViewActivity.this, FavoritesFragment.class);
+                startActivity(intentFav);
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);
