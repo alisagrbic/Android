@@ -86,8 +86,7 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
                         new FragmentMaps()).commit();
                 break;
             case R.id.nav_favorites:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new FavoritesFragment()).commit();
+                startActivity(new Intent(getApplicationContext(), FavoritesFragment.class));
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);
