@@ -6,6 +6,7 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import java.util.List;
 
@@ -19,5 +20,14 @@ public interface UserDAO {
 
     @Query("SELECT * FROM user")
     List<User> getAll();
+
+    @Update
+    void updateUser(User user);
+
+    @Query("SELECT * FROM user WHERE user.username == :username")
+    User getUserByUsername(String username);
+
+    @Query("SELECT * FROM user WHERE user.`loggedIn` == :state")
+    User getLoggedInUser(boolean state);
 
 }

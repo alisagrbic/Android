@@ -30,13 +30,17 @@ public class User{
     @ColumnInfo(name = "perimeter")
     public int perimeter;
 
-    public User(String name, String surname, String username, String email, String password, int perimeter) {
+    @ColumnInfo(name = "loggedIn")
+    public boolean loggedIn;
+
+    public User(String name, String surname, String username, String email, String password, int perimeter, boolean loggedIn) {
         this.name = name;
         this.surname = surname;
         this.username = username;
         this.email = email;
         this.password = password;
         this.perimeter = perimeter;
+        this.loggedIn = loggedIn;
     }
 
     //For printing
@@ -100,4 +104,8 @@ public class User{
     public int getPerimeter() { return perimeter; }
 
     public void setPerimeter(int perimeter) { this.perimeter = perimeter; }
+
+    public boolean isLoggedIn() { return loggedIn; }
+
+    public void setLoggedIn(boolean loggedIn) { this.loggedIn = loggedIn; }
 }

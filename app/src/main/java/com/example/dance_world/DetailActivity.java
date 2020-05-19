@@ -20,11 +20,14 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.dance_world.database.DatabaseHelper;
 import com.example.dance_world.database.entities.Artist;
+import com.example.dance_world.database.entities.User;
 import com.google.android.material.navigation.NavigationView;
 
 public class DetailActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
+    private DatabaseHelper helper;
     ImageButton settings, liness, imageHeart;
     ListView listView;
     private DrawerLayout drawer;
@@ -37,6 +40,8 @@ public class DetailActivity extends AppCompatActivity implements NavigationView.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+
+        helper = DatabaseHelper.getInstance(this);
 
         settings = findViewById(R.id.settings);
         liness = findViewById(R.id.liness);
@@ -138,6 +143,15 @@ public class DetailActivity extends AppCompatActivity implements NavigationView.
                 break;
             case R.id.nav_favorites:
                 startActivity(new Intent(getApplicationContext(), FavoritesFragment.class));
+                break;
+            case R.id.nav_Logout:
+
+                User user = helper.UserDao().getLoggedInUser(true);
+                user.loggedIn=false;
+                helper.UserDao().updateUser(user);
+
+                Intent intentOut = new Intent(DetailActivity.this, LoginActivity.class);
+                startActivity(intentOut);
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);

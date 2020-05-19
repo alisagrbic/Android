@@ -2,6 +2,7 @@ package com.example.dance_world;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.GravityCompat;
@@ -9,6 +10,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -21,11 +23,18 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.dance_world.database.DatabaseHelper;
+import com.example.dance_world.database.entities.User;
 import com.google.android.material.navigation.NavigationView;
+
+import java.util.List;
 
 
 public class MasterViewActivity  extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    private DatabaseHelper helper;
     private DrawerLayout drawer;
     ImageButton settings, liness, imageHeart;
     ListView listView;
@@ -40,6 +49,7 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_masterview);
 
+        helper = DatabaseHelper.getInstance(this);
 
         settings = findViewById(R.id.settings);
         liness = findViewById(R.id.liness);
@@ -135,6 +145,7 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()){
@@ -149,6 +160,15 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
             case R.id.nav_favorites:
                 Intent intentFav = new Intent(MasterViewActivity.this, FavoritesFragment.class);
                 startActivity(intentFav);
+                break;
+            case R.id.nav_Logout:
+
+                User user = helper.UserDao().getLoggedInUser(true);
+                user.loggedIn=false;
+                helper.UserDao().updateUser(user);
+
+                Intent intentOut = new Intent(MasterViewActivity.this, LoginActivity.class);
+                startActivity(intentOut);
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);

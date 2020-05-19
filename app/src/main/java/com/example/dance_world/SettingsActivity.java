@@ -16,10 +16,13 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.dance_world.database.DatabaseHelper;
+import com.example.dance_world.database.entities.User;
 import com.google.android.material.navigation.NavigationView;
 
 public class SettingsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, NavigationView.OnNavigationItemSelectedListener {
 
+    private DatabaseHelper helper;
     Spinner theme_spinner, perimeter_spinner, dance_spinner;
     Button Apply;
     private DrawerLayout drawer;
@@ -29,6 +32,8 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+
+        helper = DatabaseHelper.getInstance(this);
 
         theme_spinner = findViewById(R.id.theme_spinner);
         perimeter_spinner = findViewById(R.id.perimeter_spinner);
@@ -116,6 +121,15 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
                 break;
             case R.id.nav_favorites:
                 startActivity(new Intent(getApplicationContext(), FavoritesFragment.class));
+                break;
+            case R.id.nav_Logout:
+
+                User user = helper.UserDao().getLoggedInUser(true);
+                user.loggedIn=false;
+                helper.UserDao().updateUser(user);
+
+                Intent intentOut = new Intent(SettingsActivity.this, LoginActivity.class);
+                startActivity(intentOut);
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);

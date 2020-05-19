@@ -19,15 +19,20 @@
             android:id="@+id/nav_favorites"
             android:icon="@drawable/ic_favorites"
             android:title="Favorites" />
+
+        <item
+            android:id="@+id/nav_Logout"
+            android:icon="@drawable/logout"
+            android:title="Logout" />
     </group>
 
-  <!--  <item android:title="Settings">
+  <!--  <item android:title="Logout">
         <manu>
             <item
-                android:id="@+id/nav_settings"
-                android:icon="@drawable/settings"
-                android:title="Settings" />
+                android:id="@+id/nav_Logout"
+                android:icon="@drawable/logout"
+                android:title="Logout" />
         </manu>
     </item>
-    !-->
+-->
 </menu>
