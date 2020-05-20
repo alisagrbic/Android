@@ -16,10 +16,13 @@ public class Dj {
     @ColumnInfo(name = "surname")
     public String surname;
 
-    public Dj(long id, String name, String surname) {
-        this.id = id;
+    @ColumnInfo(name = "id_festival", index = true)
+    public long id_festival;
+
+    public Dj(String name, String surname, long id_festival) {
         this.name = name;
         this.surname = surname;
+        this.id_festival=id_festival;
     }
 
     public long getId() {
@@ -45,4 +48,8 @@ public class Dj {
     public void setSurname(String surname) {
         this.surname = surname;
     }
+
+    public long getId_festival() { return id_festival; }
+
+    public void setId_festival(long id_festival) { this.id_festival = id_festival; }
 }

@@ -29,11 +29,13 @@ public class Festival {
     @ColumnInfo(name = "datetime")
     public String datetime;
 
+    @ColumnInfo(name = "imagePath")
+    public String imagePath;
+
     @ColumnInfo(name = "id_user", index = true)
     public long id_user;
 
-    public Festival(long id, String name, String city, double gps_longitude, double gps_latitude, String comments, String datetime, long id_user) {
-        this.id = id;
+    public Festival(String name, String city, double gps_longitude, double gps_latitude, String comments, String datetime, long id_user, String imagePath) {
         this.name = name;
         this.city = city;
         this.gps_longitude = gps_longitude;
@@ -41,6 +43,7 @@ public class Festival {
         this.comments = comments;
         this.datetime = datetime;
         this.id_user = id_user;
+        this.imagePath=imagePath;
     }
 
     public long getId() {
@@ -102,4 +105,8 @@ public class Festival {
     public long getId_user() { return id_user; }
 
     public void setId_user(long id_user) { this.id_user = id_user; }
+
+    public String getImagePath() { return imagePath; }
+
+    public void setImagePath(String imagePath) { this.imagePath = imagePath; }
 }

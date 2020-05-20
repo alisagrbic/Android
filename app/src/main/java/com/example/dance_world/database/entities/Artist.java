@@ -16,10 +16,17 @@ public class Artist {
     @ColumnInfo(name = "surname")
     public String surname;
 
-    public Artist(long id, String name, String surname) {
-        this.id = id;
+    @ColumnInfo(name = "imagePath")
+    public String imagePath;
+
+    @ColumnInfo(name = "id_festival", index = true)
+    public long id_festival;
+
+    public Artist(String name, String surname, long id_festival, String imagePath) {
         this.name = name;
         this.surname = surname;
+        this.id_festival=id_festival;
+        this.imagePath=imagePath;
     }
 
     public long getId() {
@@ -45,4 +52,12 @@ public class Artist {
     public void setSurname(String surname) {
         this.surname = surname;
     }
+
+    public long getId_festival() { return id_festival; }
+
+    public void setId_festival(long id_festival) { this.id_festival = id_festival; }
+
+    public String getImagePath() { return imagePath; }
+
+    public void setImagePath(String imagePath) { this.imagePath = imagePath; }
 }
