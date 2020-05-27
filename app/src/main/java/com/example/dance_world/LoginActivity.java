@@ -58,8 +58,9 @@ public class LoginActivity extends AppCompatActivity {
 
                     Intent intent = new Intent(LoginActivity.this, MasterViewActivity.class);
                     startActivity(intent);
-                }else
+                }else {
                     Toast.makeText(LoginActivity.this, "You don't have an account. Please sign up.", Toast.LENGTH_LONG).show();
+                }
             }
         });
 

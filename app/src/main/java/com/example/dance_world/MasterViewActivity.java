@@ -26,7 +26,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dance_world.database.DatabaseHelper;
-import com.example.dance_world.database.entities.Festival;
 import com.example.dance_world.database.entities.User;
 import com.google.android.material.navigation.NavigationView;
 
@@ -52,13 +51,13 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
 
         helper = DatabaseHelper.getInstance(this);
 
-        User u = helper.UserDao().getUserByUsername("Alisic");
-        User u1 = helper.UserDao().getUserByUsername("Majce");
-        User u2 = helper.UserDao().getUserByUsername("Mica");
+        // User u = helper.UserDao().getUserByUsername("Alisic");
+        // User u1 = helper.UserDao().getUserByUsername("Majce");
+        // User u2 = helper.UserDao().getUserByUsername("Mica");
 
 
 //ADD ENTITIES
-      /*
+/*
        //Festivals
       Festival f1 = new Festival("Creamfields", "Austria", 48.210033, 16.363449, "One of the two or three most prestigious dance festivals on the planet, Creamfields is always full to bursting with worldwide stars.",
                 "27.08.2020.", u.id, "R.drawable.creamfields");
@@ -119,8 +118,8 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
         Artist a11 = new Artist("Luis & Andrea", "Kizomba", helper.FestivalDao().getIdFestivalByName("Primavera Sound"), "R.drawable.luis_andrea");
         Artist a111 = new Artist("Luis & Andrea", "Kizomba", helper.FestivalDao().getIdFestivalByName("Sziget Festival"), "R.drawable.luis_andrea");
         Artist a113 = new Artist("Luis & Andrea", "Kizomba", helper.FestivalDao().getIdFestivalByName("Mad Cool Festiva"), "R.drawable.luis_andrea");
-*/
 
+*/
         settings = findViewById(R.id.settings);
         liness = findViewById(R.id.liness);
         listView = findViewById(R.id.ListView);

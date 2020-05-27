@@ -15,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.example.dance_world.database.DatabaseHelper;
+import com.example.dance_world.database.DatabaseInitializer;
 import com.example.dance_world.database.entities.User;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.material.navigation.NavigationView;
@@ -23,13 +24,15 @@ import com.google.android.material.navigation.NavigationView;
 public class MainActivity extends AppCompatActivity {
 
     Button loginMain;
+    DatabaseInitializer dbInitializer;
   //  private DrawerLayout drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+    dbInitializer = new DatabaseInitializer(this);
+    dbInitializer.InitData();
      //   Toolbar toolbar = findViewById(R.id.toolbar);
     //    setSupportActionBar(toolbar);
 
