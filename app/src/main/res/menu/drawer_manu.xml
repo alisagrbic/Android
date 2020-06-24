@@ -10,6 +10,7 @@
             android:icon="@drawable/ic_festivals"
             android:title="List Of Festivals" />
 
+
         <item
             android:id="@+id/nav_map"
             android:icon="@drawable/ic_map"
@@ -20,6 +21,9 @@
             android:icon="@drawable/ic_favorites"
             android:title="Favorites" />
 
+    </group>
+
+    <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_Logout"
             android:icon="@drawable/logout"

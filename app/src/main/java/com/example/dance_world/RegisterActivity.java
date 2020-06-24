@@ -38,7 +38,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 User user = new User(Name.getText().toString(), Surname.getText().toString(), Username.getText().toString(),
-                                    Email.getText().toString(), Password.getText().toString(), 0, true);
+                                    Email.getText().toString(), Password.getText().toString(), 0, true, "");
                 helper.UserDao().insertUser(user);
                 Toast.makeText(RegisterActivity.this, "You are now registered.", Toast.LENGTH_LONG).show();
 

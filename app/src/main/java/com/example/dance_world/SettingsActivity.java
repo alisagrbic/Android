@@ -46,6 +46,9 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        //customize header view
+        View header = navigationView.inflateHeaderView(R.layout.nav_header);
+
         drawer = findViewById(R.id.drawerr_layout);
 
 

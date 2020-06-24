@@ -55,6 +55,9 @@ public class DetailActivity extends AppCompatActivity implements NavigationView.
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        //customize header view
+        View header = navigationView.inflateHeaderView(R.layout.nav_header);
+
         drawer = findViewById(R.id.drawerr_layout);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
