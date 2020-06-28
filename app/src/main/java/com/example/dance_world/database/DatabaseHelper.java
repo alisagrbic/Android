@@ -36,7 +36,7 @@ import androidx.room.RoomDatabase;
         exportSchema = false)
 public abstract class DatabaseHelper extends RoomDatabase {
 
-    private static final String DATABASE_NAME = "dw.db";
+    private static final String DATABASE_NAME = "dance.db";
     public static  DatabaseHelper instance;
 
     public static synchronized DatabaseHelper getInstance(Context context) {

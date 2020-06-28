@@ -30,12 +30,12 @@ public class Festival {
     public String datetime;
 
     @ColumnInfo(name = "imagePath")
-    public String imagePath;
+    public int imagePath;
 
     @ColumnInfo(name = "id_user", index = true)
     public long id_user;
 
-    public Festival(String name, String city, double gps_longitude, double gps_latitude, String comments, String datetime, long id_user, String imagePath) {
+    public Festival(String name, String city, double gps_longitude, double gps_latitude, String comments, String datetime, long id_user, int imagePath) {
         this.name = name;
         this.city = city;
         this.gps_longitude = gps_longitude;
@@ -106,7 +106,7 @@ public class Festival {
 
     public void setId_user(long id_user) { this.id_user = id_user; }
 
-    public String getImagePath() { return imagePath; }
+    public int getImagePath() { return imagePath; }
 
-    public void setImagePath(String imagePath) { this.imagePath = imagePath; }
+    public void setImagePath(int imagePath) { this.imagePath = imagePath; }
 }

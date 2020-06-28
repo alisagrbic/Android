@@ -61,9 +61,6 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
         listView = findViewById(R.id.ListView);
         imageHeart = findViewById(R.id.heart);
 
-
-
-
         //create adapter instance
         MyAdapter adapter = new MyAdapter(this, helper.FestivalDao().getAllNames(), buttons, helper.FestivalDao().getAllImages());
         listView.setAdapter(adapter);
@@ -143,8 +140,6 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
         });
 
     }
-
-
 
     class MyAdapter extends ArrayAdapter<String> {
         Context context;

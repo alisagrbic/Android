@@ -30,9 +30,6 @@ public class LoginActivity extends AppCompatActivity {
 
         helper = DatabaseHelper.getInstance(this);
 
-        /*User user = new User("Alisa", "Grbic", "Alisic", "alisa.grbic@gmail.com", "alisa123", 0, false);
-        helper.UserDao().insertUser(user);*/
-
         SignUp = findViewById(R.id.SignUp);
         Login = findViewById(R.id.Login);
         Username = findViewById(R.id.Username);
