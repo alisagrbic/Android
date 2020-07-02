@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.example.dance_world.database.dao.ArtistDAO;
 import com.example.dance_world.database.dao.DjDAO;
+import com.example.dance_world.database.dao.FavoritesDAO;
 import com.example.dance_world.database.dao.FestivalDAO;
 import com.example.dance_world.database.dao.NotificationDAO;
 import com.example.dance_world.database.dao.TicketDAO;
@@ -12,6 +13,7 @@ import com.example.dance_world.database.entities.Artist;
 import com.example.dance_world.database.entities.ArtistFestival;
 import com.example.dance_world.database.entities.Dj;
 import com.example.dance_world.database.entities.DjFestival;
+import com.example.dance_world.database.entities.Favorites;
 import com.example.dance_world.database.entities.Festival;
 import com.example.dance_world.database.entities.Notification;
 import com.example.dance_world.database.entities.Ticket;
@@ -21,6 +23,7 @@ import com.example.dance_world.database.entities.UserFestival;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 
 @Database(entities = {  User.class,
                         Ticket.class,
@@ -30,13 +33,15 @@ import androidx.room.RoomDatabase;
                         Artist.class,
                         UserFestival.class,
                         DjFestival.class,
-                        ArtistFestival.class
+                        ArtistFestival.class,
+                        Favorites.class
         },
         version = 12,
         exportSchema = false)
+//@TypeConverters({GenreConverter.class})
 public abstract class DatabaseHelper extends RoomDatabase {
 
-    private static final String DATABASE_NAME = "dance.db";
+    private static final String DATABASE_NAME = "dance_dance.db";
     public static  DatabaseHelper instance;
 
     public static synchronized DatabaseHelper getInstance(Context context) {
@@ -58,4 +63,5 @@ public abstract class DatabaseHelper extends RoomDatabase {
     public abstract FestivalDAO FestivalDao();
     public abstract DjDAO DjDao();
     public abstract ArtistDAO ArtistDao();
+    public abstract FavoritesDAO FavoritesDao();
 }

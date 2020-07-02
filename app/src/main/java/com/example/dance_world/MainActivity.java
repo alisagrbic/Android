@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     dbInitializer = new DatabaseInitializer(this);
     dbInitializer.InitData();
      //   Toolbar toolbar = findViewById(R.id.toolbar);
-    //    setSupportActionBar(toolbar);
+    //    setSupportActionBar(toolbar);|
 
         loginMain = findViewById(R.id.loginMain);
 

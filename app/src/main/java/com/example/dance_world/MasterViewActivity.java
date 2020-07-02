@@ -37,17 +37,18 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
     private static final int RESULT_LOAD_IMAGE=1;
     private DatabaseHelper helper;
     private DrawerLayout drawer;
-    ImageButton settings, liness, imageHeart, imageAddPhoto;
-    ListView listView;
+    ImageButton settings, liness, imageHeart, imageAddPhoto, favorite;
+    ListView ListViewFestival;
     TextView nameUser;
     ImageView image;
     private static final int IMAGE_PICK_CODE=1000;
     private static final int PERMISSION_CODE=1001;
 
 
-    int images[]; //= {R.drawable.rovinj, R.drawable.rovinj2};
-    /* String mTitle[] = {"Receive notifications?", "Receive notifications?"};*/
+    //String images[]; //= {R.drawable.rovinj, R.drawable.rovinj2};
+  //  String mTitle[] = {"Receive notifications?", "Receive notifications?", "Receive notifications?", "Receive notifications?", "Receive notifications?"};
     int buttons[]= {R.id.notification, R.id.notification, R.id.notification, R.id.notification,R.id.notification};
+    int buttonsFav[] = {R.id.favorite, R.id.favorite, R.id.favorite, R.id.favorite, R.id.favorite};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,12 +59,14 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
 
         settings = findViewById(R.id.settings);
         liness = findViewById(R.id.liness);
-        listView = findViewById(R.id.ListView);
+        ListViewFestival = findViewById(R.id.ListViewFestival);
         imageHeart = findViewById(R.id.heart);
+        favorite = findViewById(R.id.favorite);
+
 
         //create adapter instance
-        MyAdapter adapter = new MyAdapter(this, helper.FestivalDao().getAllNames(), buttons, helper.FestivalDao().getAllImages());
-        listView.setAdapter(adapter);
+        MyAdapter adapter = new MyAdapter(this, helper.FestivalDao().getAllNames(), buttons, helper.FestivalDao().getAllImages(), buttonsFav);
+        ListViewFestival.setAdapter(adapter);
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -103,10 +106,9 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
 
 
 
-    drawer = findViewById(R.id.drawer_layout);
+        drawer = findViewById(R.id.drawer_layout);
 
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        ListViewFestival.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Intent intent = new Intent(MasterViewActivity.this, DetailActivity.class);
@@ -139,6 +141,8 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
             }
         });
 
+
+
     }
 
     class MyAdapter extends ArrayAdapter<String> {
@@ -146,13 +150,15 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
         String rTitle[];
         int buttons[];
         int rImgs[];
+        int buttonsFav[];
 
-        MyAdapter(Context c,  String title[], int btns[],  int imgs[]) {
-            super(c, R.layout.row_masterview, R.id.notification, title);
+        MyAdapter(Context c,  String title[], int btns[],  int imgs[], int fav[]) {
+            super(c, R.layout.row_masterview, R.id.nameFestival, title);
             this.context = c;
             this.rTitle = title;
             this.buttons = btns;
             this.rImgs = imgs;
+            this.buttonsFav=fav;
         }
 
         @NonNull
@@ -163,12 +169,16 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
 
             View row = layoutInflater.inflate(R.layout.row_masterview, parent, false);
             ImageView images = row.findViewById(R.id.masterImage);
-            TextView myTitle = row.findViewById(R.id.name);
+            ImageButton myFav= row.findViewById(R.id.favorite);
+            TextView myTitle = row.findViewById(R.id.nameFestival);
             Button myButtons= row.findViewById(R.id.notification);
 
+
             images.setImageResource(rImgs[position]);
+            myFav.setBottom(buttonsFav[position]);
             myTitle.setText(rTitle[position]);
             myButtons.setBottom(buttons[position]);
+
 
             return row;
         }

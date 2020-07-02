@@ -4,6 +4,14 @@ import androidx.room.ColumnInfo;
 import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverter;
+import androidx.room.TypeConverters;
+
+import com.example.dance_world.database.GenreConverter;
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 
 @Entity(tableName = "user")
@@ -36,6 +44,10 @@ public class User{
     @ColumnInfo(name = "loggedIn")
     public boolean loggedIn;
 
+   /* @ColumnInfo(name = "favorites")
+    @TypeConverters(GenreConverter.class)
+    private List<String> favorites;*/
+
     public User(String name, String surname, String username, String email, String password, int perimeter, boolean loggedIn, String image) {
         this.name = name;
         this.surname = surname;
@@ -45,6 +57,7 @@ public class User{
         this.perimeter = perimeter;
         this.loggedIn = loggedIn;
         this.image=image;
+       // this.favorites=favorites;
     }
 
     //For printing
@@ -116,4 +129,9 @@ public class User{
     public String getImage() { return image; }
 
     public void setImage(String image) { this.image = image; }
+
+    /*public List<String> getFavorites() { return favorites; }
+
+    public void setFavorites(List<String> favorites) { this.favorites = favorites; }*/
+
 }
