@@ -47,8 +47,10 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
 
     //String images[]; //= {R.drawable.rovinj, R.drawable.rovinj2};
   //  String mTitle[] = {"Receive notifications?", "Receive notifications?", "Receive notifications?", "Receive notifications?", "Receive notifications?"};
-    int buttons[]= {R.id.notification, R.id.notification, R.id.notification, R.id.notification,R.id.notification};
-    int buttonsFav[] = {R.id.favorite, R.id.favorite, R.id.favorite, R.id.favorite, R.id.favorite};
+    int buttons[]= {R.id.notification, R.id.notification, R.id.notification, R.id.notification,R.id.notification,
+            R.id.notification, R.id.notification, R.id.notification, R.id.notification,R.id.notification};
+    int buttonsFav[] = {R.id.favorite, R.id.favorite, R.id.favorite, R.id.favorite, R.id.favorite,
+            R.id.favorite, R.id.favorite, R.id.favorite, R.id.favorite, R.id.favorite};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,9 +105,6 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
             }
         });
 
-
-
-
         drawer = findViewById(R.id.drawer_layout);
 
         ListViewFestival.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -153,7 +152,7 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
         int buttonsFav[];
 
         MyAdapter(Context c,  String title[], int btns[],  int imgs[], int fav[]) {
-            super(c, R.layout.row_masterview, R.id.nameFestival, title);
+            super(c, R.layout.row_masterview,  R.id.nameFestival, title);
             this.context = c;
             this.rTitle = title;
             this.buttons = btns;

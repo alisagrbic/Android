@@ -68,7 +68,6 @@ public class MapsActivity extends AppCompatActivity {
                             MarkerOptions options = new MarkerOptions().position(latLng)
                                     .title("I am there");
 
-
                             //Zoom map
                             googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
 

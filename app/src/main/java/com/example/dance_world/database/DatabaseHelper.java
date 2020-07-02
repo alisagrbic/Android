@@ -23,7 +23,6 @@ import com.example.dance_world.database.entities.UserFestival;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
-import androidx.room.TypeConverters;
 
 @Database(entities = {  User.class,
                         Ticket.class,
@@ -41,7 +40,7 @@ import androidx.room.TypeConverters;
 //@TypeConverters({GenreConverter.class})
 public abstract class DatabaseHelper extends RoomDatabase {
 
-    private static final String DATABASE_NAME = "dance_dance.db";
+    private static final String DATABASE_NAME = "dw.db";
     public static  DatabaseHelper instance;
 
     public static synchronized DatabaseHelper getInstance(Context context) {

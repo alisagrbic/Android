@@ -21,7 +21,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.dance_world.database.DatabaseHelper;
-import com.example.dance_world.database.entities.Artist;
+import com.example.dance_world.database.entities.Festival;
 import com.example.dance_world.database.entities.User;
 import com.google.android.material.navigation.NavigationView;
 
@@ -31,6 +31,7 @@ public class DetailActivity extends AppCompatActivity implements NavigationView.
     ImageButton settings, liness, imageHeart;
     ListView listView;
     private DrawerLayout drawer;
+    Festival festival;
 
 
     int images[] = {R.drawable.artists, R.drawable.dj2, R.drawable.workshop};
@@ -42,6 +43,8 @@ public class DetailActivity extends AppCompatActivity implements NavigationView.
         setContentView(R.layout.activity_detail);
 
         helper = DatabaseHelper.getInstance(this);
+        String festivalName = getIntent().getStringExtra("festivalName");
+        festival = helper.FestivalDao().getFestivalByName(festivalName);
 
         settings = findViewById(R.id.settings);
         liness = findViewById(R.id.liness);
@@ -65,6 +68,7 @@ public class DetailActivity extends AppCompatActivity implements NavigationView.
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if(position==0) {
                     Intent intent = new Intent(DetailActivity.this, ArtistsActivity.class);
+
                     startActivity(intent);
                 }
                 else if(position==1) {

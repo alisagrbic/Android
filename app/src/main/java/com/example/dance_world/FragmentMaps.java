@@ -1,6 +1,7 @@
 package com.example.dance_world;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -11,22 +12,28 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
+import com.example.dance_world.database.DatabaseHelper;
+import com.example.dance_world.database.entities.Festival;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+
+import java.util.List;
 
 public class FragmentMaps extends Fragment implements OnMapReadyCallback {
     //Initialize variable
     SupportMapFragment supportMapFragment;
     FusedLocationProviderClient client;
+    private DatabaseHelper helper;
+    List<Festival> festivals;
 
     @Nullable
     @Override
@@ -38,9 +45,11 @@ public class FragmentMaps extends Fragment implements OnMapReadyCallback {
     public void onViewCreated(View view,Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        helper = DatabaseHelper.getInstance(getContext());
+        festivals = helper.FestivalDao().getAll();
+
         //Assign variable
         supportMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.gmap);
-        //supportMapFragment.getMapAsync(this);
 
         //Initialize fused location
         client = LocationServices.getFusedLocationProviderClient(supportMapFragment.getContext());
@@ -49,7 +58,7 @@ public class FragmentMaps extends Fragment implements OnMapReadyCallback {
         if(ActivityCompat.checkSelfPermission(supportMapFragment.getContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             //When permission granted, call method
-            getCurrentLocation();
+            setFestivalLocations();
         } else {
             //When permission denied
             //Request permission
@@ -58,7 +67,7 @@ public class FragmentMaps extends Fragment implements OnMapReadyCallback {
         }
     }
 
-    private void getCurrentLocation() {
+    private void setFestivalLocations() {
         //Initialize task Location
         Task<Location> task = client.getLastLocation();
         task.addOnSuccessListener(new OnSuccessListener<Location>() {
@@ -70,18 +79,28 @@ public class FragmentMaps extends Fragment implements OnMapReadyCallback {
                     supportMapFragment.getMapAsync(new OnMapReadyCallback() {
                         @Override
                         public void onMapReady(GoogleMap googleMap) {
-                            //Initialize LatLng
-                            LatLng latLng = new LatLng(location.getLatitude(),
-                                    location.getLongitude());
-                            MarkerOptions options = new MarkerOptions().position(latLng)
-                                    .title("I am there");
 
+                            for (final Festival festival: festivals) {
+                                LatLng latLng = new LatLng(festival.gps_latitude, festival.gps_longitude);
+                                MarkerOptions options = new MarkerOptions().position(latLng)
+                                        .title(festival.city);
 
-                            //Zoom map
-                            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
+                                googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                                    @Override
+                                    public boolean onMarkerClick(Marker marker) {
+                                        Intent intent = new Intent(getContext(), DetailActivity.class);
+                                        intent.putExtra("festivalName", festival.name);
+                                        startActivity(intent);
+                                        return false;
+                                    }
+                                });
 
-                            //Add marker on map
-                            googleMap.addMarker(options);
+                                //Zoom map
+                                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
+
+                                //Add marker on map
+                                googleMap.addMarker(options);
+                            }
                         }
                     });
                 }
@@ -91,5 +110,9 @@ public class FragmentMaps extends Fragment implements OnMapReadyCallback {
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+    }
+
+    public boolean onMarkerClick(final Marker marker) {
+        return false;
     }
 }
