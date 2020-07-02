@@ -20,4 +20,7 @@ public interface ArtistDAO {
 
     @Query("SELECT * FROM artist")
     List<Artist> getAll();
+
+    @Query("SELECT * FROM artist WHERE artist.id_festival == :festivalId")
+    List<Artist> getArtistByFestivalId(Long festivalId);
 }

@@ -79,17 +79,18 @@ public class FragmentMaps extends Fragment implements OnMapReadyCallback {
                     supportMapFragment.getMapAsync(new OnMapReadyCallback() {
                         @Override
                         public void onMapReady(GoogleMap googleMap) {
-
-                            for (final Festival festival: festivals) {
+                            for (Festival festival: festivals) {
                                 LatLng latLng = new LatLng(festival.gps_latitude, festival.gps_longitude);
                                 MarkerOptions options = new MarkerOptions().position(latLng)
                                         .title(festival.city);
 
+                                final String festivalName = festival.name;
                                 googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                                     @Override
                                     public boolean onMarkerClick(Marker marker) {
                                         Intent intent = new Intent(getContext(), DetailActivity.class);
-                                        intent.putExtra("festivalName", festival.name);
+
+                                        intent.putExtra("festivalName", festivalName);
                                         startActivity(intent);
                                         return false;
                                     }

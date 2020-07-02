@@ -68,7 +68,7 @@ public class DetailActivity extends AppCompatActivity implements NavigationView.
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if(position==0) {
                     Intent intent = new Intent(DetailActivity.this, ArtistsActivity.class);
-
+                    intent.putExtra("festivalId", String.valueOf(festival.id));
                     startActivity(intent);
                 }
                 else if(position==1) {

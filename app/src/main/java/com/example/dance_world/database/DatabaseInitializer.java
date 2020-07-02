@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.example.dance_world.R;
 import com.example.dance_world.database.entities.Artist;
+import com.example.dance_world.database.entities.ArtistFestival;
 import com.example.dance_world.database.entities.Dj;
 import com.example.dance_world.database.entities.Festival;
 import com.example.dance_world.database.entities.User;
@@ -62,17 +63,17 @@ public class DatabaseInitializer {
         helper.DjDao().insertDj(dj9);
         helper.DjDao().insertDj(dj10);
 
-        Artist a1 = new Artist("Ronald & Alba", "Bachata", helper.FestivalDao().getIdFestivalByName("Bachateando"), "R.drawable.ronald_alba");
-        Artist a2 = new Artist("Ronald & Alba", "Bachata ", helper.FestivalDao().getIdFestivalByName("Baltimore Salsa Congress"), "R.drawable.ronald_alba");
-        Artist a3 = new Artist("Korke & Judit", "Salsa", helper.FestivalDao().getIdFestivalByName("Adicto"), "R.drawable.korke_judit");
-        Artist a4 = new Artist("Daniel & Desiree", "Bachata", helper.FestivalDao().getIdFestivalByName("Bachateando"), "R.drawable.daniel_desiree");
-        Artist a5 = new Artist("Korke & Judit", "Salsa", helper.FestivalDao().getIdFestivalByName("Bachata Day"), "R.drawable.korke_judit");
-        Artist a6 = new Artist("Ataca & La Alemana", "Bachata modern", helper.FestivalDao().getIdFestivalByName("Adicto"), "R.drawable.ataca_laalemana");
-        Artist a7 = new Artist("Ataca & La Alemana", "Bachata modern", helper.FestivalDao().getIdFestivalByName("Baltimore Salsa Congress"), "R.drawable.ataca_laalemana");
-        Artist a8 = new Artist("Luis & Andrea", "Kizomba", helper.FestivalDao().getIdFestivalByName("Bachata Day"), "R.drawable.luis_andrea");
-        Artist a9 = new Artist("Luis & Andrea", "Kizomba", helper.FestivalDao().getIdFestivalByName("Summer Sensual Days"), "R.drawable.luis_andrea");
-        Artist a10 = new Artist("Luis & Andrea", "Kizomba", helper.FestivalDao().getIdFestivalByName("Adicto"), "R.drawable.luis_andrea");
-        Artist a11 = new Artist("Luis & Andrea", "Kizomba", helper.FestivalDao().getIdFestivalByName("Bachateando"), "R.drawable.luis_andrea");
+        Artist a1 = new Artist("Ronald & Alba", "Bachata", helper.FestivalDao().getIdFestivalByName("Bachateando"), R.drawable.ronald_alba);
+        Artist a2 = new Artist("Ronald & Alba", "Bachata ", helper.FestivalDao().getIdFestivalByName("Baltimore Salsa Congress"), R.drawable.ronald_alba);
+        Artist a3 = new Artist("Korke & Judit", "Salsa", helper.FestivalDao().getIdFestivalByName("Adicto"), R.drawable.korke_judit);
+        Artist a4 = new Artist("Daniel & Desiree", "Bachata", helper.FestivalDao().getIdFestivalByName("Bachateando"), R.drawable.daniel_desiree);
+        Artist a5 = new Artist("Korke & Judit", "Salsa", helper.FestivalDao().getIdFestivalByName("Bachata Day"), R.drawable.korke_judit);
+        Artist a6 = new Artist("Ataca & La Alemana", "Bachata modern", helper.FestivalDao().getIdFestivalByName("Adicto"), R.drawable.ataca_laalemana);
+        Artist a7 = new Artist("Ataca & La Alemana", "Bachata modern", helper.FestivalDao().getIdFestivalByName("Baltimore Salsa Congress"), R.drawable.ataca_laalemana);
+        Artist a8 = new Artist("Luis & Andrea", "Kizomba", helper.FestivalDao().getIdFestivalByName("Bachata Day"), R.drawable.luis_andrea);
+        Artist a9 = new Artist("Luis & Andrea", "Kizomba", helper.FestivalDao().getIdFestivalByName("Summer Sensual Days"), R.drawable.luis_andrea);
+        Artist a10 = new Artist("Luis & Andrea", "Kizomba", helper.FestivalDao().getIdFestivalByName("Adicto"), R.drawable.luis_andrea);
+        Artist a11 = new Artist("Luis & Andrea", "Kizomba", helper.FestivalDao().getIdFestivalByName("Bachateando"), R.drawable.luis_andrea);
 
         helper.ArtistDao().insertArtist(a1);
         helper.ArtistDao().insertArtist(a2);

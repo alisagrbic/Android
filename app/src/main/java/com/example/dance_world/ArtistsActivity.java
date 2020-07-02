@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,21 +15,41 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.dance_world.database.DatabaseHelper;
+import com.example.dance_world.database.entities.Artist;
+
+import java.util.List;
+
 public class ArtistsActivity extends AppCompatActivity {
 
+    private DatabaseHelper helper;
+    List<Artist> artists;
     ListView listView;
-    String mTitle[] = {"Daniel & Desiree", "Ronald & Alba", "Korke & Judit", "Ataca & La Alemana",
-                        "Luis & Andrea"};
-    String mDescription[] = {"Bachata sensual", "Bachata", "Salsa", "Bachata modern", "Kizomba"};
-    int images[] = {R.drawable.daniel_desiree, R.drawable.ronald_alba, R.drawable.korke_judit,
-            R.drawable.ataca_laalemana, R.drawable.luis_andrea};
+    String mTitle[];
+    String mDescription[];
+    int images[];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        helper = DatabaseHelper.getInstance(this);
+        String festivalId = getIntent().getStringExtra("festivalId");
+        artists = helper.ArtistDao().getArtistByFestivalId(Long.parseLong(festivalId));
         setContentView(R.layout.activity_artists);
 
         listView = findViewById(R.id.ListView);
+
+        int i = 0;
+        mTitle = new String[artists.size()];
+        mDescription = new String[artists.size()];
+        images = new int[artists.size()];
+        for (Artist a: artists) {
+            mTitle[i] = a.name;
+            mDescription[i] = a.surname;
+            images[i] = a.imagePath;
+            i++;
+        };
 
         //create adapter instance
         MyAdapter adapter = new MyAdapter(this, mTitle, mDescription, images);
