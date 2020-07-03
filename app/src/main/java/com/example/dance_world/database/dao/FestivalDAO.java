@@ -37,4 +37,7 @@ public interface FestivalDAO {
 
     @Query("SELECT * FROM festival WHERE festival.name == :name")
     Festival getFestivalByName(String name);
+
+    @Query("SELECT * FROM festival WHERE festival.id == :id")
+    Festival getFestivalById(long id);
 }

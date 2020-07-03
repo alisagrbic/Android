@@ -27,6 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dance_world.database.DatabaseHelper;
+import com.example.dance_world.database.entities.Favorites;
 import com.example.dance_world.database.entities.User;
 import com.google.android.material.navigation.NavigationView;
 
@@ -39,8 +40,9 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
     private DrawerLayout drawer;
     ImageButton settings, liness, imageHeart, imageAddPhoto, favorite;
     ListView ListViewFestival;
-    TextView nameUser;
+    TextView nameUser, nameFestival;
     ImageView image;
+    Button notification;
     private static final int IMAGE_PICK_CODE=1000;
     private static final int PERMISSION_CODE=1001;
 
@@ -59,16 +61,33 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
 
         helper = DatabaseHelper.getInstance(this);
 
+       // Favorites fav = new Favorites(helper.UserDao().getLoggedInUser(true).id, helper.FestivalDao().getFestivalByName("Summer Sensual Days").id);
+      //  helper.FavoritesDao().insertFavorite(fav);
+
         settings = findViewById(R.id.settings);
         liness = findViewById(R.id.liness);
         ListViewFestival = findViewById(R.id.ListViewFestival);
         imageHeart = findViewById(R.id.heart);
         favorite = findViewById(R.id.favorite);
-
+        notification = findViewById(R.id.notification);
+        nameFestival = findViewById(R.id.nameFestival);
 
         //create adapter instance
         MyAdapter adapter = new MyAdapter(this, helper.FestivalDao().getAllNames(), buttons, helper.FestivalDao().getAllImages(), buttonsFav);
         ListViewFestival.setAdapter(adapter);
+
+        ListViewFestival.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                String str = ListViewFestival.getItemAtPosition(position).toString();
+                Intent intent = new Intent(MasterViewActivity.this, DetailActivity.class);
+
+                intent.putExtra("festivalName", str);
+                startActivity(intent);
+                intent.removeExtra("festivalName");
+            }
+        });
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -107,14 +126,6 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
 
         drawer = findViewById(R.id.drawer_layout);
 
-        ListViewFestival.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Intent intent = new Intent(MasterViewActivity.this, DetailActivity.class);
-                    startActivity(intent);
-            }
-        });
-
 
         liness.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,8 +150,6 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
                 startActivity(intent);
             }
         });
-
-
 
     }
 

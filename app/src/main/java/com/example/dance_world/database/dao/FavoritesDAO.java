@@ -20,4 +20,7 @@ public interface FavoritesDAO {
 
     @Query("SELECT * FROM favorites")
     List<Favorites> getAll();
+
+    @Query("SELECT * FROM favorites WHERE favorites.id_user == :id_user")
+    List<Favorites> getAllFavoritesByUserId(long id_user);
 }

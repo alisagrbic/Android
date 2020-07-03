@@ -6,6 +6,7 @@ import com.example.dance_world.R;
 import com.example.dance_world.database.entities.Artist;
 import com.example.dance_world.database.entities.ArtistFestival;
 import com.example.dance_world.database.entities.Dj;
+import com.example.dance_world.database.entities.Favorites;
 import com.example.dance_world.database.entities.Festival;
 import com.example.dance_world.database.entities.User;
 
@@ -86,5 +87,7 @@ public class DatabaseInitializer {
         helper.ArtistDao().insertArtist(a9);
         helper.ArtistDao().insertArtist(a10);
         helper.ArtistDao().insertArtist(a11);
+
+
     }
 }

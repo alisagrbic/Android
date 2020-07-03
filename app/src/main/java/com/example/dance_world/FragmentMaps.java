@@ -92,6 +92,7 @@ public class FragmentMaps extends Fragment implements OnMapReadyCallback {
 
                                         intent.putExtra("festivalName", festivalName);
                                         startActivity(intent);
+                                        intent.removeExtra("festivalName");
                                         return false;
                                     }
                                 });

@@ -31,7 +31,7 @@ public class DetailActivity extends AppCompatActivity implements NavigationView.
     ImageButton settings, liness, imageHeart;
     ListView listView;
     private DrawerLayout drawer;
-    Festival festival;
+    Festival festival, festivalMaster;
 
 
     int images[] = {R.drawable.artists, R.drawable.dj2, R.drawable.workshop};
