@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,7 @@ import java.util.List;
 
 public class FragmentMaps extends Fragment implements OnMapReadyCallback {
     //Initialize variable
+    private GoogleMap map;
     SupportMapFragment supportMapFragment;
     FusedLocationProviderClient client;
     private DatabaseHelper helper;
@@ -51,70 +53,31 @@ public class FragmentMaps extends Fragment implements OnMapReadyCallback {
         //Assign variable
         supportMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.gmap);
 
-        //Initialize fused location
-        client = LocationServices.getFusedLocationProviderClient(supportMapFragment.getContext());
-
-        //Check permission
-        if(ActivityCompat.checkSelfPermission(supportMapFragment.getContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            //When permission granted, call method
-            setFestivalLocations();
-        } else {
-            //When permission denied
-            //Request permission
-            ActivityCompat.requestPermissions(supportMapFragment.getActivity(),
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
-        }
-    }
-
-    private void setFestivalLocations() {
-        //Initialize task Location
-        Task<Location> task = client.getLastLocation();
-        task.addOnSuccessListener(new OnSuccessListener<Location>() {
-            @Override
-            public void onSuccess(final Location location) {
-                //When success
-                if(location != null) {
-                    //Sync map
-                    supportMapFragment.getMapAsync(new OnMapReadyCallback() {
-                        @Override
-                        public void onMapReady(GoogleMap googleMap) {
-                            for (Festival festival: festivals) {
-                                LatLng latLng = new LatLng(festival.gps_latitude, festival.gps_longitude);
-                                MarkerOptions options = new MarkerOptions().position(latLng)
-                                        .title(festival.city);
-
-                                final String festivalName = festival.name;
-                                googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-                                    @Override
-                                    public boolean onMarkerClick(Marker marker) {
-                                        Intent intent = new Intent(getContext(), DetailActivity.class);
-
-                                        intent.putExtra("festivalName", festivalName);
-                                        startActivity(intent);
-                                        intent.removeExtra("festivalName");
-                                        return false;
-                                    }
-                                });
-
-                                //Zoom map
-                                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
-
-                                //Add marker on map
-                                googleMap.addMarker(options);
-                            }
-                        }
-                    });
-                }
-            }
-        });
+        supportMapFragment.getMapAsync(this);
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-    }
+        map = googleMap;
 
-    public boolean onMarkerClick(final Marker marker) {
-        return false;
+        for (Festival festival: festivals) {
+            LatLng ll = new LatLng(festival.gps_latitude, festival.gps_longitude);
+            map.addMarker(new MarkerOptions().position(ll).title(festival.city));
+            map.moveCamera(CameraUpdateFactory.newLatLng(ll));
+        }
+
+        map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                String markerTitile= marker.getTitle();
+                Log.w("aaaaa", markerTitile);
+                Intent intent = new Intent(getContext(), DetailActivity.class);
+                intent.putExtra("festivalCity", markerTitile);
+                startActivity(intent);
+
+                return  false;
+            }
+        });
+
     }
 }

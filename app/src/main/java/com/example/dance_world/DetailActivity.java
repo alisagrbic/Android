@@ -43,8 +43,8 @@ public class DetailActivity extends AppCompatActivity implements NavigationView.
         setContentView(R.layout.activity_detail);
 
         helper = DatabaseHelper.getInstance(this);
-        String festivalName = getIntent().getStringExtra("festivalName");
-        festival = helper.FestivalDao().getFestivalByName(festivalName);
+        String festivalCity = getIntent().getStringExtra("festivalCity");
+        festival = helper.FestivalDao().getFestivalByCity(festivalCity);
 
         settings = findViewById(R.id.settings);
         liness = findViewById(R.id.liness);
