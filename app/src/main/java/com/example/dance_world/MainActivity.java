@@ -13,12 +13,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.dance_world.database.DatabaseHelper;
 import com.example.dance_world.database.DatabaseInitializer;
+import com.example.dance_world.database.entities.Notification;
 import com.example.dance_world.database.entities.User;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.material.navigation.NavigationView;
+
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -35,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
    // dbInitializer.InitData();
      //   Toolbar toolbar = findViewById(R.id.toolbar);
     //    setSupportActionBar(toolbar);|
-
         loginMain = findViewById(R.id.loginMain);
 
         loginMain.setOnClickListener(new View.OnClickListener() {

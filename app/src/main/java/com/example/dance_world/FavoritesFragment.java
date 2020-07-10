@@ -2,6 +2,7 @@ package com.example.dance_world;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.dance_world.database.DatabaseHelper;
@@ -25,6 +27,7 @@ import com.example.dance_world.database.entities.Favorites;
 import com.example.dance_world.database.entities.Festival;
 import com.example.dance_world.database.entities.User;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +37,7 @@ public class FavoritesFragment extends AppCompatActivity {
     String festivalNames[];
     String festivalCities[];
     int festivalImages[];
+    int buttonFav[] = {R.id.buttonDeleteFavorite,R.id.buttonDeleteFavorite,R.id.buttonDeleteFavorite};
     Favorites fav;
     Festival fest;
     ImageButton buttonDeleteFavorite;
@@ -62,15 +66,24 @@ public class FavoritesFragment extends AppCompatActivity {
                 festivalNames[i] = fest.name;
                 festivalCities[i] = fest.city;
                 festivalImages[i] = fest.imagePath;
+              // buttonFav[i]=R.id.buttonDeleteFavorite;
             }
         }
+
+      /*  int size = favorites.size();
+
+        for(int i=0; i<size; i++){
+            buttonFav[i]=R.id.buttonDeleteFavorite;
+        }*/
+        Toast.makeText(FavoritesFragment.this, "" + buttonFav, Toast.LENGTH_SHORT).show();
+
 
         listFavorites = findViewById(R.id.listFavorites);
         buttonDeleteFavorite = findViewById(R.id.buttonDeleteFavorite);
         name = findViewById(R.id.name);
 
         //create adapter instance
-        adapter = new MyAdapter(this, festivalNames, festivalCities, festivalImages);
+        adapter = new MyAdapter(this, festivalNames, festivalCities, festivalImages, buttonFav);
         listFavorites.setAdapter(adapter);
 
     }
@@ -80,28 +93,59 @@ public class FavoritesFragment extends AppCompatActivity {
         String rTitle[];
         String rDescription[];
         int rImg[];
+        int bFav[];
 
-        MyAdapter(Context c, String title[],String description[], int img[]) {
+        MyAdapter(Context c, String title[],String description[], int img[], int fav[]) {
             super(c, R.layout.row_favorites,R.id.name, title);
             this.context = c;
             this.rTitle = title;
             this.rDescription = description;
             this.rImg = img;
+            this.bFav = fav;
         }
 
         @NonNull
         @Override
-        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
             LayoutInflater layoutInflater = (LayoutInflater)getApplicationContext()
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View row = layoutInflater.inflate(R.layout.row_favorites, parent, false);
             TextView myTitle = row.findViewById(R.id.name);
             ImageView images = row.findViewById(R.id.fav_image);
             TextView myDescription= row.findViewById(R.id.subtitle);
+            ImageButton myButtons= row.findViewById(R.id.buttonDeleteFavorite);
+
+            myButtons.setOnClickListener(new View.OnClickListener() {
+                @RequiresApi(api = Build.VERSION_CODES.O)
+                @Override
+                public void onClick(View v) {
+                    String str = listFavorites.getItemAtPosition(position).toString();
+                    LocalDateTime time = LocalDateTime.now();
+                    User user = helper.UserDao().getLoggedInUser(true);
+                    Festival festival = helper.FestivalDao().getFestivalByName(str);
+                    Favorites favorites = new Favorites(user.id, festival.id);
+                    String st = "";
+
+                    for(Favorites f: helper.FavoritesDao().getAll()){
+                        if(f.id_user==user.id && f.id_festival==festival.id)
+                            st = "Remove from favorites";
+                        else
+                            st = "Never mind";
+                    }
+
+                    if(st=="Remove from favorites")
+                        helper.FavoritesDao().deleteFavorites(favorites);
+
+                   // myFav.setImageResource(R.drawable.ic_favorite_black_24dp);
+                    //Toast.makeText(getContext(), "" + user.id + festival.id, Toast.LENGTH_SHORT).show();
+                }
+            });
+
 
             images.setImageResource(rImg[position]);
             myTitle.setText(rTitle[position]);
             myDescription.setText(rDescription[position]);
+            myButtons.setBottom(bFav[position]);
             return row;
         }
     }

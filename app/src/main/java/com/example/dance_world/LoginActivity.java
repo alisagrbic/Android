@@ -14,7 +14,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.dance_world.database.DatabaseHelper;
+import com.example.dance_world.database.entities.Notification;
 import com.example.dance_world.database.entities.User;
+
+import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
 

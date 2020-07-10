@@ -25,8 +25,8 @@ public class Notification {
     @ColumnInfo(name = "id_user", index = true)
     public long id_user;
 
-    public Notification(long id, String datetime, String content, long id_user) {
-        this.id = id;
+    public Notification(String datetime, String content, long id_user) {
+
         this.datetime = datetime;
         this.content = content;
         this.id_user = id_user;

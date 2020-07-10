@@ -6,6 +6,8 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
@@ -28,9 +30,14 @@ import android.widget.Toast;
 
 import com.example.dance_world.database.DatabaseHelper;
 import com.example.dance_world.database.entities.Favorites;
+import com.example.dance_world.database.entities.Festival;
+import com.example.dance_world.database.entities.Notification;
 import com.example.dance_world.database.entities.User;
 import com.google.android.material.navigation.NavigationView;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 
 public class MasterViewActivity  extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
@@ -75,6 +82,8 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
         //create adapter instance
         MyAdapter adapter = new MyAdapter(this, helper.FestivalDao().getAllNames(), buttons, helper.FestivalDao().getAllImages(), buttonsFav);
         ListViewFestival.setAdapter(adapter);
+
+
 
         ListViewFestival.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -171,23 +180,61 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
 
         @NonNull
         @Override
-        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
             LayoutInflater layoutInflater = (LayoutInflater) getApplicationContext()
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
+
             View row = layoutInflater.inflate(R.layout.row_masterview, parent, false);
             ImageView images = row.findViewById(R.id.masterImage);
-            ImageButton myFav= row.findViewById(R.id.favorite);
+            final ImageButton myFav= row.findViewById(R.id.favorite);
             TextView myTitle = row.findViewById(R.id.nameFestival);
             Button myButtons= row.findViewById(R.id.notification);
 
+
+            myButtons.setOnClickListener(new View.OnClickListener() {
+                @RequiresApi(api = Build.VERSION_CODES.O)
+                @Override
+                public void onClick(View v) {
+                    String str = ListViewFestival.getItemAtPosition(position).toString();
+                    LocalDateTime time = LocalDateTime.now();
+                    User user = helper.UserDao().getLoggedInUser(true);
+                    Notification notification = new Notification(time.toString(), str, user.id);
+                    helper.NotificationDao().insertNotification(notification);
+                    //Toast.makeText(getContext(), time + str + user.id, Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            myFav.setOnClickListener(new View.OnClickListener() {
+                @RequiresApi(api = Build.VERSION_CODES.O)
+                @Override
+                public void onClick(View v) {
+                    String str = ListViewFestival.getItemAtPosition(position).toString();
+                    LocalDateTime time = LocalDateTime.now();
+                    User user = helper.UserDao().getLoggedInUser(true);
+                    Festival festival = helper.FestivalDao().getFestivalByName(str);
+                    Favorites favorites = new Favorites(user.id, festival.id);
+                    String st = "";
+
+                    for(Favorites f: helper.FavoritesDao().getAll()){
+                        if(f.id_user==user.id && f.id_festival==festival.id)
+                             st = "Already is favorite";
+                        else
+                            st = "Add to favorites";
+                    }
+
+                    if(st=="Add to favorites")
+                        helper.FavoritesDao().insertFavorite(favorites);
+
+                    myFav.setImageResource(R.drawable.ic_favorite_black_24dp);
+                    //Toast.makeText(getContext(), "" + user.id + festival.id, Toast.LENGTH_SHORT).show();
+                }
+           });
 
             images.setImageResource(rImgs[position]);
             myFav.setBottom(buttonsFav[position]);
             myTitle.setText(rTitle[position]);
             myButtons.setBottom(buttons[position]);
-
-
             return row;
         }
     }
@@ -258,6 +305,14 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
             user.setImage(data.getDataString());
             helper.UserDao().updateUser(user);
         }
+    }
+
+    public boolean isFavorite(long idFavorite){
+        Favorites favorite = helper.FavoritesDao().getFavoriteById(idFavorite);
+        if(favorite==null)
+            return false;
+        else
+            return true;
     }
 
 }
