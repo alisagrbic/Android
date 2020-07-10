@@ -40,4 +40,7 @@ public interface FestivalDAO {
 
     @Query("SELECT * FROM festival WHERE festival.id == :id")
     Festival getFestivalById(long id);
+
+    @Query("SELECT * FROM festival WHERE festival.city == :city")
+    Festival getFestivalByCity(String city);
 }
