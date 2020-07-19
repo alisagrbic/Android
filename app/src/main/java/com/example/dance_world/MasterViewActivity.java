@@ -37,6 +37,7 @@ import com.google.android.material.navigation.NavigationView;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -54,13 +55,8 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
     private static final int PERMISSION_CODE=1001;
 
 
-    //String images[]; //= {R.drawable.rovinj, R.drawable.rovinj2};
-  //  String mTitle[] = {"Receive notifications?", "Receive notifications?", "Receive notifications?", "Receive notifications?", "Receive notifications?"};
-    int buttons[]= {R.id.notification, R.id.notification, R.id.notification, R.id.notification,R.id.notification,
-            R.id.notification, R.id.notification, R.id.notification, R.id.notification,R.id.notification};
-    int buttonsFav[] = {R.id.favorite, R.id.favorite, R.id.favorite, R.id.favorite, R.id.favorite,
-            R.id.favorite, R.id.favorite, R.id.favorite, R.id.favorite, R.id.favorite};
-
+     List<Button> buttons = new ArrayList<>();
+     List<ImageButton> buttonsFav = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,6 +74,23 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
         favorite = findViewById(R.id.favorite);
         notification = findViewById(R.id.notification);
         nameFestival = findViewById(R.id.nameFestival);
+
+
+
+        int size = helper.FestivalDao().getAll().size();
+        for(int i=0; i<size; i++){
+            buttons.add(notification);
+            buttonsFav.add(favorite);
+        }
+
+       /* for(int i=0; i<size; i++){
+            for(int j=size; j>0; j--){
+                if(i!=j) {
+                    if (helper.FestivalDao().getAll().get(i).name == helper.FestivalDao().getAll().get(j).name)
+                        helper.FestivalDao().deleteFestival(helper.FestivalDao().getAll().get(i));
+                }
+            }
+        }*/
 
         //create adapter instance
         MyAdapter adapter = new MyAdapter(this, helper.FestivalDao().getAllNames(), buttons, helper.FestivalDao().getAllImages(), buttonsFav);
@@ -165,11 +178,11 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
     class MyAdapter extends ArrayAdapter<String> {
         Context context;
         String rTitle[];
-        int buttons[];
+        List<Button> buttons;
         int rImgs[];
-        int buttonsFav[];
+        List<ImageButton> buttonsFav;
 
-        MyAdapter(Context c,  String title[], int btns[],  int imgs[], int fav[]) {
+        MyAdapter(Context c,  String title[],List<Button> btns,  int imgs[], List<ImageButton> fav) {
             super(c, R.layout.row_masterview,  R.id.nameFestival, title);
             this.context = c;
             this.rTitle = title;
@@ -190,6 +203,16 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
             final ImageButton myFav= row.findViewById(R.id.favorite);
             TextView myTitle = row.findViewById(R.id.nameFestival);
             Button myButtons= row.findViewById(R.id.notification);
+            myTitle.setText(rTitle[position]);
+
+            String s = ListViewFestival.getItemAtPosition(position).toString();
+            Festival fest = helper.FestivalDao().getFestivalByName(s);
+            for(Favorites f: helper.FavoritesDao().getAll()) {
+                if (f.id_festival == fest.id) {
+                    myFav.setImageResource(R.drawable.ic_favorite_black_24dp);
+                }
+            }
+
 
 
             myButtons.setOnClickListener(new View.OnClickListener() {
@@ -238,9 +261,9 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
            });
 
             images.setImageResource(rImgs[position]);
-            myFav.setBottom(buttonsFav[position]);
-            myTitle.setText(rTitle[position]);
-            myButtons.setBottom(buttons[position]);
+           // myFav.setBottom(buttonsFav[position]);
+
+        //    myButtons.setBottom(buttons[position]);
             return row;
         }
     }
