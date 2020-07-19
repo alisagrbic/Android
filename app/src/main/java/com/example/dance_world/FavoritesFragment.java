@@ -37,7 +37,7 @@ public class FavoritesFragment extends AppCompatActivity {
     String festivalNames[];
     String festivalCities[];
     int festivalImages[];
-    int buttonFav[] = {R.id.buttonDeleteFavorite,R.id.buttonDeleteFavorite,R.id.buttonDeleteFavorite};
+    List<ImageButton> buttonFav = new ArrayList<ImageButton>(); //= {R.id.buttonDeleteFavorite,R.id.buttonDeleteFavorite,R.id.buttonDeleteFavorite};
     Favorites fav;
     Festival fest;
     ImageButton buttonDeleteFavorite;
@@ -55,6 +55,10 @@ public class FavoritesFragment extends AppCompatActivity {
         User user = helper.UserDao().getLoggedInUser(true);
         List<Favorites> favorites = helper.FavoritesDao().getAllFavoritesByUserId(user.id);
 
+
+        buttonDeleteFavorite = findViewById(R.id.buttonDeleteFavorite);
+
+
         festivalNames = new String[favorites.size()];
         festivalCities = new String[favorites.size()];
         festivalImages = new int[favorites.size()];
@@ -66,20 +70,20 @@ public class FavoritesFragment extends AppCompatActivity {
                 festivalNames[i] = fest.name;
                 festivalCities[i] = fest.city;
                 festivalImages[i] = fest.imagePath;
-              // buttonFav[i]=R.id.buttonDeleteFavorite;
+                buttonFav.add(buttonDeleteFavorite);
             }
         }
 
-      /*  int size = favorites.size();
+       /* int size = favorites.size();
 
         for(int i=0; i<size; i++){
             buttonFav[i]=R.id.buttonDeleteFavorite;
+
         }*/
+
         Toast.makeText(FavoritesFragment.this, "" + buttonFav, Toast.LENGTH_SHORT).show();
-
-
         listFavorites = findViewById(R.id.listFavorites);
-        buttonDeleteFavorite = findViewById(R.id.buttonDeleteFavorite);
+
         name = findViewById(R.id.name);
 
         //create adapter instance
@@ -93,9 +97,9 @@ public class FavoritesFragment extends AppCompatActivity {
         String rTitle[];
         String rDescription[];
         int rImg[];
-        int bFav[];
+        List<ImageButton> bFav;
 
-        MyAdapter(Context c, String title[],String description[], int img[], int fav[]) {
+        MyAdapter(Context c, String title[],String description[], int img[], List<ImageButton> fav) {
             super(c, R.layout.row_favorites,R.id.name, title);
             this.context = c;
             this.rTitle = title;
@@ -120,21 +124,16 @@ public class FavoritesFragment extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     String str = listFavorites.getItemAtPosition(position).toString();
-                    LocalDateTime time = LocalDateTime.now();
                     User user = helper.UserDao().getLoggedInUser(true);
                     Festival festival = helper.FestivalDao().getFestivalByName(str);
-                    Favorites favorites = new Favorites(user.id, festival.id);
-                    String st = "";
 
-                    for(Favorites f: helper.FavoritesDao().getAll()){
-                        if(f.id_user==user.id && f.id_festival==festival.id)
-                            st = "Remove from favorites";
-                        else
-                            st = "Never mind";
+                    for(Favorites f: helper.FavoritesDao().getAll()) {
+                        if (f.id_user == user.id && f.id_festival == festival.id) {
+                            helper.FavoritesDao().deleteFavorites(f);
+                            onRestart();
+                        }
+
                     }
-
-                    if(st=="Remove from favorites")
-                        helper.FavoritesDao().deleteFavorites(favorites);
 
                    // myFav.setImageResource(R.drawable.ic_favorite_black_24dp);
                     //Toast.makeText(getContext(), "" + user.id + festival.id, Toast.LENGTH_SHORT).show();
@@ -145,8 +144,15 @@ public class FavoritesFragment extends AppCompatActivity {
             images.setImageResource(rImg[position]);
             myTitle.setText(rTitle[position]);
             myDescription.setText(rDescription[position]);
-            myButtons.setBottom(bFav[position]);
+          //  myButtons.setBottom(bFav.get(position).getBottom());
+
             return row;
         }
+    }
+
+    @Override
+    protected void onRestart() {
+        this.recreate();
+        super.onRestart();
     }
 }

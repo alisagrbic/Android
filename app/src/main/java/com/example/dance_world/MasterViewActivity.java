@@ -216,6 +216,10 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
                     Favorites favorites = new Favorites(user.id, festival.id);
                     String st = "";
 
+                    if(helper.FavoritesDao().getAll().size()==0) {
+                        st = "Add to favorites";
+                    }
+
                     for(Favorites f: helper.FavoritesDao().getAll()){
                         if(f.id_user==user.id && f.id_festival==festival.id)
                              st = "Already is favorite";
@@ -225,6 +229,8 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
 
                     if(st=="Add to favorites")
                         helper.FavoritesDao().insertFavorite(favorites);
+                    else
+                        Toast.makeText(getContext(), "Already is favorite", Toast.LENGTH_SHORT).show();
 
                     myFav.setImageResource(R.drawable.ic_favorite_black_24dp);
                     //Toast.makeText(getContext(), "" + user.id + festival.id, Toast.LENGTH_SHORT).show();
