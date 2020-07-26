@@ -3,8 +3,11 @@ package com.example.dance_world;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +22,7 @@ public class DjActivity extends AppCompatActivity {
     String mTitle[] = {"DJ Khalid", "DJ El Tiquere", "DJ Latin Master", "DJ X-tra"};
     String mDescription[] = {"Bachata", "Bachata", "Bachata, Salsa Romantica", "Kizomba"};
     int images = R.drawable.dj2;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +30,8 @@ public class DjActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dj);
 
         listView = findViewById(R.id.ListView);
+        toolbar = findViewById(R.id.toolbar);
+
 
         //create adapter instance
         MyAdapter adapter = new MyAdapter(this, mTitle, mDescription, images);

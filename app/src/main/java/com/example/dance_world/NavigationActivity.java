@@ -8,11 +8,14 @@ import androidx.databinding.DataBindingUtil;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.dance_world.database.DatabaseHelper;
@@ -25,6 +28,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
     Button goToMap;
     private DatabaseHelper helper;
     TextView test;
+    Toolbar toolbar;
 
 
     @Override
@@ -33,6 +37,13 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         setContentView(R.layout.activity_navigation);
 
         NavigationView navigationView = findViewById(R.id.nav_view);
+
+        toolbar = findViewById(R.id.toolbar);
+
+        String color = getIntent().getStringExtra("colorTheme");
+        ColorDrawable c = new ColorDrawable(Color.parseColor(color));
+
+        toolbar.setBackground(c);
 
    //     Toolbar toolbar = findViewById(R.id.toolbar);
  //       setSupportActionBar(toolbar);

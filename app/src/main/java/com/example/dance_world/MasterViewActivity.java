@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,6 +13,8 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -24,7 +27,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,11 +51,13 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
     private static final int RESULT_LOAD_IMAGE=1;
     private DatabaseHelper helper;
     private DrawerLayout drawer;
+    private LinearLayout header;
     ImageButton settings, liness, imageHeart, imageAddPhoto, favorite;
     ListView ListViewFestival;
     TextView nameUser, nameFestival;
     ImageView image;
     Button notification;
+    Toolbar toolbar;
     private static final int IMAGE_PICK_CODE=1000;
     private static final int PERMISSION_CODE=1001;
 
@@ -74,6 +81,14 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
         favorite = findViewById(R.id.favorite);
         notification = findViewById(R.id.notification);
         nameFestival = findViewById(R.id.nameFestival);
+        toolbar = findViewById(R.id.toolbar);
+        header = findViewById(R.id.header_color);
+
+        final String color = getIntent().getStringExtra("colorTheme");
+        ColorDrawable c = new ColorDrawable(Color.parseColor(color));
+        //Toast.makeText(MasterViewActivity.this, "" + c, Toast.LENGTH_SHORT).show();
+
+        toolbar.setBackground(c);
 
 
 
@@ -106,8 +121,10 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
                 Intent intent = new Intent(MasterViewActivity.this, DetailActivity.class);
 
                 intent.putExtra("festivalName", str);
+                intent.putExtra("colorTheme", color);
                 startActivity(intent);
                 intent.removeExtra("festivalName");
+                intent.removeExtra("colorTheme");
             }
         });
 
@@ -123,6 +140,8 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
         nameUser.setText("Hello " + user.name + "!");
         Uri imgUri=Uri.parse(user.getImage());
         image.setImageURI(imgUri);
+
+        header.setBackground(c);
 
         imageAddPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -161,7 +180,9 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MasterViewActivity.this, SettingsActivity.class);
+                intent.putExtra("colorTheme", color);
                 startActivity(intent);
+                intent.removeExtra("colorTheme");
             }
         });
 
@@ -223,8 +244,17 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
                     LocalDateTime time = LocalDateTime.now();
                     User user = helper.UserDao().getLoggedInUser(true);
                     Notification notification = new Notification(time.toString(), str, user.id);
-                    helper.NotificationDao().insertNotification(notification);
-                    //Toast.makeText(getContext(), time + str + user.id, Toast.LENGTH_SHORT).show();
+                    List<Notification> notifs = helper.NotificationDao().findNotificationsForUser(user.id);
+                    String s = "No";
+                    for(Notification n: notifs){
+                        if(n.content.contains(str))
+                            s = "Yes";
+                    }
+                    if(s=="No") {
+                        helper.NotificationDao().insertNotification(notification);
+                        Toast.makeText(getContext(), "You will receive notifications for that festival.", Toast.LENGTH_SHORT).show();
+                        onRestart();
+                    }
                 }
             });
 
@@ -237,7 +267,7 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
                     User user = helper.UserDao().getLoggedInUser(true);
                     Festival festival = helper.FestivalDao().getFestivalByName(str);
                     Favorites favorites = new Favorites(user.id, festival.id);
-                    String st = "";
+                    String st = "Add";
 
                     if(helper.FavoritesDao().getAll().size()==0) {
                         st = "Add to favorites";
@@ -245,13 +275,13 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
 
                     for(Favorites f: helper.FavoritesDao().getAll()){
                         if(f.id_user==user.id && f.id_festival==festival.id)
-                             st = "Already is favorite";
-                        else
-                            st = "Add to favorites";
+                            st = "Already is favorite";
                     }
 
-                    if(st=="Add to favorites")
+                    if(st=="Add to favorites" || st=="Add") {
                         helper.FavoritesDao().insertFavorite(favorites);
+                        onRestart();
+                    }
                     else
                         Toast.makeText(getContext(), "Already is favorite", Toast.LENGTH_SHORT).show();
 
@@ -336,12 +366,10 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
         }
     }
 
-    public boolean isFavorite(long idFavorite){
-        Favorites favorite = helper.FavoritesDao().getFavoriteById(idFavorite);
-        if(favorite==null)
-            return false;
-        else
-            return true;
+    @Override
+    protected void onRestart() {
+        this.recreate();
+        super.onRestart();
     }
 
 }

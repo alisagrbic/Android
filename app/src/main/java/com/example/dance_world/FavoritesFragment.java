@@ -2,6 +2,8 @@ package com.example.dance_world;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -21,6 +23,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.dance_world.database.DatabaseHelper;
 import com.example.dance_world.database.entities.Favorites;
@@ -44,6 +47,7 @@ public class FavoritesFragment extends AppCompatActivity {
     TextView name;
     MyAdapter adapter;
     private DatabaseHelper helper;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +61,8 @@ public class FavoritesFragment extends AppCompatActivity {
 
 
         buttonDeleteFavorite = findViewById(R.id.buttonDeleteFavorite);
+        toolbar = findViewById(R.id.toolbar);
+
 
 
         festivalNames = new String[favorites.size()];
@@ -81,7 +87,7 @@ public class FavoritesFragment extends AppCompatActivity {
 
         }*/
 
-        Toast.makeText(FavoritesFragment.this, "" + buttonFav, Toast.LENGTH_SHORT).show();
+      //  Toast.makeText(FavoritesFragment.this, "" + buttonFav, Toast.LENGTH_SHORT).show();
         listFavorites = findViewById(R.id.listFavorites);
 
         name = findViewById(R.id.name);

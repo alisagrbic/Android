@@ -3,11 +3,14 @@ package com.example.dance_world;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -32,6 +35,7 @@ public class DetailActivity extends AppCompatActivity implements NavigationView.
     ListView listView;
     private DrawerLayout drawer;
     Festival festival, festivalMaster;
+    Toolbar toolbar;
 
 
     int images[] = {R.drawable.artists, R.drawable.dj2, R.drawable.workshop};
@@ -50,6 +54,12 @@ public class DetailActivity extends AppCompatActivity implements NavigationView.
         liness = findViewById(R.id.liness);
         listView = findViewById(R.id.ListView);
         imageHeart = findViewById(R.id.heart);
+        toolbar = findViewById(R.id.toolbar);
+
+        String color = getIntent().getStringExtra("colorTheme");
+        ColorDrawable c = new ColorDrawable(Color.parseColor(color));
+
+        toolbar.setBackground(c);
 
         //create adapter instance
         MyAdapter adapter = new MyAdapter(this, mTitle, images);
@@ -60,6 +70,7 @@ public class DetailActivity extends AppCompatActivity implements NavigationView.
 
         //customize header view
         View header = navigationView.inflateHeaderView(R.layout.nav_header);
+        header.setBackground(c);
 
         drawer = findViewById(R.id.drawerr_layout);
 

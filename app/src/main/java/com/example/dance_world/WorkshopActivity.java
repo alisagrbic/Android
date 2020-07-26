@@ -3,8 +3,11 @@ package com.example.dance_world;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +23,7 @@ public class WorkshopActivity extends AppCompatActivity {
     String mTitle[] = {"Kizomba", "Sensual Bachata", "Kizomba Fusion"};
     String mDescription[] = {"Slow moves, slides and lifts \n\n19. June 13:00-14:00",
     "Fundamentals \n\n19. June 14:10-15:10", "Fundamentals and evlolution \n\n19. June 15:20-16:20"};
+    Toolbar toolbar;
     int images[] = {R.drawable.kizomba, R.drawable.bachata, R.drawable.kiz};
 
     @Override
@@ -28,6 +32,7 @@ public class WorkshopActivity extends AppCompatActivity {
         setContentView(R.layout.activity_workshop);
 
         listView = findViewById(R.id.ListView);
+        toolbar = findViewById(R.id.toolbar);
 
         //create adapter instance
         MyAdapter adapter = new MyAdapter(this, mTitle, mDescription, images);

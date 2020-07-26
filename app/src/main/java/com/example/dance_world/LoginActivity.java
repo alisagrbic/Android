@@ -3,6 +3,8 @@ package com.example.dance_world;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -14,6 +16,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.dance_world.database.DatabaseHelper;
+import com.example.dance_world.database.entities.Festival;
 import com.example.dance_world.database.entities.Notification;
 import com.example.dance_world.database.entities.User;
 
@@ -32,6 +35,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         helper = DatabaseHelper.getInstance(this);
+
 
         SignUp = findViewById(R.id.SignUp);
         Login = findViewById(R.id.Login);
@@ -57,7 +61,10 @@ public class LoginActivity extends AppCompatActivity {
                     helper.UserDao().updateUser(user);
 
                     Intent intent = new Intent(LoginActivity.this, MasterViewActivity.class);
+                    ColorDrawable color = new ColorDrawable(Color.parseColor("#e60000"));
+                    intent.putExtra("colorTheme", "#e60000");
                     startActivity(intent);
+                    intent.removeExtra("colorTheme");
                 }else {
                     Toast.makeText(LoginActivity.this, "You don't have an account. Please sign up.", Toast.LENGTH_LONG).show();
                 }

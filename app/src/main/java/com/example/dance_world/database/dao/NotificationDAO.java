@@ -21,5 +21,5 @@ public interface NotificationDAO {
     List<Notification> getAll();
 
     @Query("SELECT * FROM notification WHERE id_user=:id_user")
-    List<Notification> findNotificationsForUser(final int id_user);
+    List<Notification> findNotificationsForUser(final long id_user);
 }

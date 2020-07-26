@@ -13,4 +13,8 @@
     <string name="welcometext">Dance all over the world! Want to know more?</string>
     <string name="Yes">Yes</string>
 
+    <string name="colorpicker_dialog_title">Choose the color</string>
+    <string name="colorpicker_dialog_cancel">CANCEL</string>
+    <string name="colorpicker_dialog_ok">OK</string>
+
 </resources>

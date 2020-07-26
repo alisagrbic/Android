@@ -3,8 +3,11 @@ package com.example.dance_world;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -32,13 +35,16 @@ public class ArtistsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setContentView(R.layout.activity_artists);
         helper = DatabaseHelper.getInstance(this);
+
+
         String festivalId = getIntent().getStringExtra("festivalId");
         artists = helper.ArtistDao().getArtistByFestivalId(Long.parseLong(festivalId));
-        setContentView(R.layout.activity_artists);
+
 
         listView = findViewById(R.id.ListView);
+
 
         int i = 0;
         mTitle = new String[artists.size()];
