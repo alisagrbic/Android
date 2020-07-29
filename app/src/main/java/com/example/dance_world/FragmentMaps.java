@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
@@ -72,9 +74,12 @@ public class FragmentMaps extends Fragment implements OnMapReadyCallback {
                 String markerTitile= marker.getTitle();
                 Log.w("aaaaa", markerTitile);
                 Intent intent = new Intent(getContext(), DetailActivity.class);
-                intent.putExtra("festivalCity", markerTitile);
+                Festival festival = helper.FestivalDao().getFestivalByCity(markerTitile);
+                intent.putExtra("festivalName", festival.name);
+                intent.putExtra("festivalImage", festival.imagePath);
                 startActivity(intent);
-
+                intent.removeExtra("festivalName");
+                intent.removeExtra("festivalImage");
                 return  false;
             }
         });

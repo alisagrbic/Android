@@ -6,6 +6,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 
 
+import com.example.dance_world.database.entities.Artist;
 import com.example.dance_world.database.entities.Dj;
 
 import java.util.List;
@@ -20,4 +21,7 @@ public interface DjDAO {
 
     @Query("SELECT * FROM dj")
     List<Dj> getAll();
+
+    @Query("SELECT * FROM dj WHERE dj.id_festival == :festivalId")
+    List<Dj> getDjsByFestivalId(Long festivalId);
 }

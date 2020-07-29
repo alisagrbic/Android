@@ -17,20 +17,44 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.dance_world.database.DatabaseHelper;
+import com.example.dance_world.database.entities.Artist;
+import com.example.dance_world.database.entities.Dj;
+
+import java.util.List;
+
 public class DjActivity extends AppCompatActivity {
+    private DatabaseHelper helper;
     ListView listView;
-    String mTitle[] = {"DJ Khalid", "DJ El Tiquere", "DJ Latin Master", "DJ X-tra"};
-    String mDescription[] = {"Bachata", "Bachata", "Bachata, Salsa Romantica", "Kizomba"};
-    int images = R.drawable.dj2;
+    String mTitle[];
+    String mDescription[];
+    int images [];
     Toolbar toolbar;
+    List<Dj> djs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dj);
 
+        helper = DatabaseHelper.getInstance(this);
+
         listView = findViewById(R.id.ListView);
         toolbar = findViewById(R.id.toolbar);
+
+        String festivalId = getIntent().getStringExtra("festivalId");
+        djs = helper.DjDao().getDjsByFestivalId(Long.parseLong(festivalId));
+
+        int i = 0;
+        mTitle = new String[djs.size()];
+        mDescription = new String[djs.size()];
+        images = new int[djs.size()];
+        for (Dj d: djs) {
+            mTitle[i] = d.name;
+            mDescription[i] = d.surname;
+            images[i] = R.drawable.dj2;
+            i++;
+        };
 
 
         //create adapter instance
@@ -42,9 +66,9 @@ public class DjActivity extends AppCompatActivity {
         Context context;
         String rTitle[];
         String rDescription[];
-        int rImg;
+        int rImg[];
 
-        MyAdapter(Context c, String title[], String description[], int img) {
+        MyAdapter(Context c, String title[], String description[], int img[]) {
             super(c, R.layout.row, R.id.name, title);
             this.context = c;
             this.rTitle = title;
@@ -63,7 +87,7 @@ public class DjActivity extends AppCompatActivity {
             TextView myTitle = row.findViewById(R.id.name);
             TextView myDescription= row.findViewById(R.id.subtitle);
 
-            images.setImageResource(rImg);
+            images.setImageResource(rImg[position]);
             myTitle.setText(rTitle[position]);
             myDescription.setText(rDescription[position]);
 

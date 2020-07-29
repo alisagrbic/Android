@@ -75,7 +75,8 @@ public class FavoritesFragment extends AppCompatActivity {
                 fest = helper.FestivalDao().getFestivalById(fav.id_festival);
                 festivalNames[i] = fest.name;
                 festivalCities[i] = fest.city;
-                festivalImages[i] = fest.imagePath;
+                int id = getResources().getIdentifier(fest.imagePath, "drawable", getPackageName());
+                festivalImages[i] = id;
                 buttonFav.add(buttonDeleteFavorite);
             }
         }

@@ -28,15 +28,15 @@ public class DatabaseInitializer {
         helper.UserDao().insertUser(user3);
 
         Festival f1 = new Festival("Bachateando", "Miami", -80.191788, 25.761681, "One of the two or three most prestigious dance festivals on the planet, Bachateando is always full to bursting with worldwide stars.",
-                "01.04.2021.", user1.id, R.drawable.bachateando);
+                "01.04.2021.", user1.id, "bachateando");
         Festival f2 = new Festival("Baltimore Salsa Congress", "Baltimore", -76.609383, 39.299236, "EXIT is an award-winning summer music festival that takes place at the Petrovaradin Fortress in Novi Sad, Serbia, with more than 1000 artists who play at over 40 stages and festival zones.",
-                "09.04.2021.", user1.id, R.drawable.baltimore);
+                "09.04.2021.", user1.id, "baltimore");
         Festival f3 = new Festival("Adicto", "Berlin", 13.381777, 52.531677, "Indie King and forceful supporter of new music, Primavera Sound prides itself on pushing the alternative scene forward. ",
-                "12.06.2020.", user2.id, R.drawable.berlin);
+                "12.06.2020.", user2.id, "berlin");
         Festival f4 = new Festival("Bachata Day", "Milano", 9.191383, 45.464211, "Transported across the Atlantic from Miami's glamourous city centre, Ultra Europe wasted no time in establishing itself as a worthy successor to the original UMF. ",
-                "05.03.2021.", user2.id, R.drawable.milan);
+                "05.03.2021.", user2.id, "milan");
         Festival f5 = new Festival("Summer Sensual Days", "Rovinj", 13.641608, 45.078132, "Sziget is one of those festivals that could never spend another cent on marketing and still sell out every single year.",
-                "19.06.2021.", user3.id, R.drawable.rovinj);
+                "19.06.2021.", user3.id, "rovinj");
         helper.FestivalDao().insertFestival(f1);
         helper.FestivalDao().insertFestival(f2);
         helper.FestivalDao().insertFestival(f3);

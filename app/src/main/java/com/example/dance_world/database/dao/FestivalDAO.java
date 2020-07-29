@@ -30,7 +30,7 @@ public interface FestivalDAO {
     String[] getAllNames();
 
     @Query("SELECT imagePath FROM festival")
-    int[] getAllImages();
+    String[] getAllImages();
 
     @Query("SELECT id FROM festival WHERE festival.name == :name")
     long getIdFestivalByName(String name);

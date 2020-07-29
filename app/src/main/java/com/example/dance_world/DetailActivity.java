@@ -2,6 +2,7 @@ package com.example.dance_world;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -11,6 +12,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -22,11 +26,15 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.dance_world.database.DatabaseHelper;
 import com.example.dance_world.database.entities.Festival;
 import com.example.dance_world.database.entities.User;
 import com.google.android.material.navigation.NavigationView;
+
+import java.io.File;
+import java.lang.reflect.Field;
 
 public class DetailActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
@@ -36,30 +44,38 @@ public class DetailActivity extends AppCompatActivity implements NavigationView.
     private DrawerLayout drawer;
     Festival festival, festivalMaster;
     Toolbar toolbar;
+    ImageView image;
 
 
     int images[] = {R.drawable.artists, R.drawable.dj2, R.drawable.workshop};
     String mTitle[] = {"ARTIST", "DJ", "WORKSHOP"};
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
         helper = DatabaseHelper.getInstance(this);
-        String festivalCity = getIntent().getStringExtra("festivalCity");
-        festival = helper.FestivalDao().getFestivalByCity(festivalCity);
+        String festivalName = getIntent().getStringExtra("festivalName");
+        String festivalImage = getIntent().getStringExtra("festivalImage");
+
+        festival = helper.FestivalDao().getFestivalByName(festivalName);
 
         settings = findViewById(R.id.settings);
         liness = findViewById(R.id.liness);
         listView = findViewById(R.id.ListView);
         imageHeart = findViewById(R.id.heart);
         toolbar = findViewById(R.id.toolbar);
+        image = findViewById(R.id.image);
 
         String color = getIntent().getStringExtra("colorTheme");
         ColorDrawable c = new ColorDrawable(Color.parseColor(color));
 
         toolbar.setBackground(c);
+
+        int id = getResources().getIdentifier(festivalImage, "drawable", getPackageName());
+        image.setImageResource(id);
 
         //create adapter instance
         MyAdapter adapter = new MyAdapter(this, mTitle, images);
@@ -84,6 +100,7 @@ public class DetailActivity extends AppCompatActivity implements NavigationView.
                 }
                 else if(position==1) {
                     Intent intent = new Intent(DetailActivity.this, DjActivity.class);
+                    intent.putExtra("festivalId", String.valueOf(festival.id));
                     startActivity(intent);
                 }
                 else {

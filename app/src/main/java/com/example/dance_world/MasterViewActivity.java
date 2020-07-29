@@ -61,9 +61,11 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
     private static final int IMAGE_PICK_CODE=1000;
     private static final int PERMISSION_CODE=1001;
 
-
      List<Button> buttons = new ArrayList<>();
      List<ImageButton> buttonsFav = new ArrayList<>();
+     int[] images;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,17 +100,16 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
             buttonsFav.add(favorite);
         }
 
-       /* for(int i=0; i<size; i++){
-            for(int j=size; j>0; j--){
-                if(i!=j) {
-                    if (helper.FestivalDao().getAll().get(i).name == helper.FestivalDao().getAll().get(j).name)
-                        helper.FestivalDao().deleteFestival(helper.FestivalDao().getAll().get(i));
-                }
-            }
-        }*/
+        int i = 0;
+        images = new int[helper.FestivalDao().getAll().size()];
+        for(Festival f: helper.FestivalDao().getAll()) {
+                int id = getResources().getIdentifier(f.imagePath, "drawable", getPackageName());
+                images[i] = id;
+                i++;
+        }
 
         //create adapter instance
-        MyAdapter adapter = new MyAdapter(this, helper.FestivalDao().getAllNames(), buttons, helper.FestivalDao().getAllImages(), buttonsFav);
+        MyAdapter adapter = new MyAdapter(this, helper.FestivalDao().getAllNames(), buttons, images, buttonsFav);
         ListViewFestival.setAdapter(adapter);
 
 
@@ -119,12 +120,16 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
 
                 String str = ListViewFestival.getItemAtPosition(position).toString();
                 Intent intent = new Intent(MasterViewActivity.this, DetailActivity.class);
+                Festival fest = helper.FestivalDao().getFestivalByName(str);
 
                 intent.putExtra("festivalName", str);
                 intent.putExtra("colorTheme", color);
+                intent.putExtra("festivalImage", fest.imagePath);
+                //Toast.makeText(MasterViewActivity.this, "" + Integer.parseInt("R.drawable.baltimore"), Toast.LENGTH_LONG).show();
                 startActivity(intent);
                 intent.removeExtra("festivalName");
                 intent.removeExtra("colorTheme");
+                intent.removeExtra("festivalImage");
             }
         });
 
@@ -172,7 +177,9 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MasterViewActivity.this, NavigationActivity.class);
+                intent.putExtra("colorTheme", color);
                 startActivity(intent);
+                intent.removeExtra("colorTheme");
             }
         });
 
