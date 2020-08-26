@@ -21,6 +21,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewDebug;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -88,29 +89,54 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
 
         final String color = getIntent().getStringExtra("colorTheme");
         ColorDrawable c = new ColorDrawable(Color.parseColor(color));
-        //Toast.makeText(MasterViewActivity.this, "" + c, Toast.LENGTH_SHORT).show();
-
         toolbar.setBackground(c);
 
+        final String names[] = getIntent().getStringArrayExtra("ApplyFestivalNames");
 
+        if(names.length!=0) {
+            int size = names.length;
+            for(int i=0; i<size; i++){
+                buttons.add(notification);
+                buttonsFav.add(favorite);
+            }
 
-        int size = helper.FestivalDao().getAll().size();
-        for(int i=0; i<size; i++){
-            buttons.add(notification);
-            buttonsFav.add(favorite);
-        }
-
-        int i = 0;
-        images = new int[helper.FestivalDao().getAll().size()];
-        for(Festival f: helper.FestivalDao().getAll()) {
+            int i = 0;
+            images = new int[names.length];
+            List<Festival> festivals = new ArrayList<>();
+            for(String name: names) {
+                Festival f = helper.FestivalDao().getFestivalByName(name);
+                festivals.add(f);
+            }
+            for (Festival f : festivals) {
                 int id = getResources().getIdentifier(f.imagePath, "drawable", getPackageName());
                 images[i] = id;
                 i++;
-        }
+            }
 
+
+            MyAdapter adapter = new MyAdapter(this, names, buttons, images, buttonsFav);
+            ListViewFestival.setAdapter(adapter);
+        }
+        else {
+            int size = helper.FestivalDao().getAll().size();
+            for (int i = 0; i < size; i++) {
+                buttons.add(notification);
+                buttonsFav.add(favorite);
+            }
+
+            int i = 0;
+            images = new int[helper.FestivalDao().getAll().size()];
+            for (Festival f : helper.FestivalDao().getAll()) {
+                int id = getResources().getIdentifier(f.imagePath, "drawable", getPackageName());
+                images[i] = id;
+                i++;
+            }
+
+            MyAdapter adapter = new MyAdapter(this, helper.FestivalDao().getAllNames(), buttons, images, buttonsFav);
+            ListViewFestival.setAdapter(adapter);
+        }
         //create adapter instance
-        MyAdapter adapter = new MyAdapter(this, helper.FestivalDao().getAllNames(), buttons, images, buttonsFav);
-        ListViewFestival.setAdapter(adapter);
+
 
 
 
@@ -178,8 +204,10 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
             public void onClick(View v) {
                 Intent intent = new Intent(MasterViewActivity.this, NavigationActivity.class);
                 intent.putExtra("colorTheme", color);
+                intent.putExtra("ApplyFestivalNames", names);
                 startActivity(intent);
                 intent.removeExtra("colorTheme");
+                intent.removeExtra("ApplyFestivalNames");
             }
         });
 

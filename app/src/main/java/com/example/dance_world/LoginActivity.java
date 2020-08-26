@@ -28,6 +28,7 @@ public class LoginActivity extends AppCompatActivity {
     Button SignUp, Login;
     EditText Username, Password;
     CheckBox ShowPassword;
+    String strings[] = {};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +61,10 @@ public class LoginActivity extends AppCompatActivity {
                     user.loggedIn=true;
                     helper.UserDao().updateUser(user);
 
+
                     Intent intent = new Intent(LoginActivity.this, MasterViewActivity.class);
                     ColorDrawable color = new ColorDrawable(Color.parseColor("#e60000"));
+                    intent.putExtra("ApplyFestivalNames", strings);
                     intent.putExtra("colorTheme", "#e60000");
                     startActivity(intent);
                     intent.removeExtra("colorTheme");

@@ -62,6 +62,12 @@ public class FragmentMaps extends Fragment implements OnMapReadyCallback {
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
 
+        map.setMyLocationEnabled(true);
+        //Location myLocation = map.getMyLocation();
+        // LatLng l = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
+      //  map.addMarker(new MarkerOptions().position(l).title("Current position"));
+      //  map.moveCamera(CameraUpdateFactory.newLatLng(l));
+
         for (Festival festival: festivals) {
             LatLng ll = new LatLng(festival.gps_latitude, festival.gps_longitude);
             map.addMarker(new MarkerOptions().position(ll).title(festival.city));
