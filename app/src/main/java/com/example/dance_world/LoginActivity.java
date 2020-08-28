@@ -68,6 +68,7 @@ public class LoginActivity extends AppCompatActivity {
                     intent.putExtra("colorTheme", "#e60000");
                     startActivity(intent);
                     intent.removeExtra("colorTheme");
+                    intent.removeExtra("ApplyFestivalNames");
                 }else {
                     Toast.makeText(LoginActivity.this, "You don't have an account. Please sign up.", Toast.LENGTH_LONG).show();
                 }

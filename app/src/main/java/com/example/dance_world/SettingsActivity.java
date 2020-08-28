@@ -72,7 +72,8 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
     private double currentLongitude;
     List<Festival> festivals;
     List<String> namesOfFestivals = new ArrayList<>();
-    String strings[];
+    String strings[] = {};
+    Bundle b = new Bundle();
 
 
     @Override
@@ -343,13 +344,21 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
         switch (menuItem.getItemId()) {
             case R.id.nav_festivals:
                 Intent intent = new Intent(SettingsActivity.this, MasterViewActivity.class);
+
+                intent.putExtra("ApplyFestivalNames", strings);
                 intent.putExtra("colorTheme", col.toString());
                 startActivity(intent);
                 intent.removeExtra("colorTheme");
+                intent.removeExtra("ApplyFestivalNames");
                 break;
             case R.id.nav_map:
+                b.putStringArray("ApplyFestivalNames", strings);
+                b.putString("ColorTheme", col.toString());
+                FragmentMaps fragmentMaps = new FragmentMaps();
+                fragmentMaps.setArguments(b);
+                // Toast.makeText(MasterViewActivity.this, "" + names.length, Toast.LENGTH_SHORT).show();
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new FragmentMaps()).commit();
+                        fragmentMaps).commit();
                 break;
             case R.id.nav_favorites:
                 startActivity(new Intent(getApplicationContext(), FavoritesFragment.class));
@@ -362,8 +371,10 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
 
                 Intent intentOut = new Intent(SettingsActivity.this, LoginActivity.class);
                 intentOut.putExtra("colorTheme", col.toString());
+                intentOut.putExtra("ApplyFestivalNames", strings);
                 startActivity(intentOut);
                 intentOut.removeExtra("colorTheme");
+                intentOut.removeExtra("ApplyFestivalNames");
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);

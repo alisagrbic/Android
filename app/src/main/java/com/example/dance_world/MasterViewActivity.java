@@ -149,7 +149,7 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
                 String str = ListViewFestival.getItemAtPosition(position).toString();
                 Intent intent = new Intent(MasterViewActivity.this, DetailActivity.class);
                 Festival fest = helper.FestivalDao().getFestivalByName(str);
-
+                intent.putExtra("ApplyFestivalNames", names);
                 intent.putExtra("festivalName", str);
                 intent.putExtra("colorTheme", color);
                 intent.putExtra("festivalImage", fest.imagePath);
@@ -158,6 +158,7 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
                 intent.removeExtra("festivalName");
                 intent.removeExtra("colorTheme");
                 intent.removeExtra("festivalImage");
+                intent.removeExtra("ApplyFestivalNames");
             }
         });
 
@@ -218,8 +219,10 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
             public void onClick(View v) {
                 Intent intent = new Intent(MasterViewActivity.this, SettingsActivity.class);
                 intent.putExtra("colorTheme", color);
+                intent.putExtra("ApplyFestivalNames", names);
                 startActivity(intent);
                 intent.removeExtra("colorTheme");
+                intent.removeExtra("ApplyFestivalNames");
             }
         });
 
@@ -341,7 +344,11 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
         switch (menuItem.getItemId()){
             case R.id.nav_festivals:
                 Intent intent = new Intent(MasterViewActivity.this, MasterViewActivity.class);
+                intent.putExtra("ApplyFestivalNames", names);
+                intent.putExtra("colorTheme", color);
                 startActivity(intent);
+                intent.removeExtra("colorTheme");
+                intent.removeExtra("ApplyFestivalNames");
                 break;
             case R.id.nav_map:
                 b.putStringArray("ApplyFestivalNames", names);

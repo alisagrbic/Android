@@ -47,6 +47,8 @@ public class DetailActivity extends AppCompatActivity implements NavigationView.
     Toolbar toolbar;
     ImageView image;
     String color = "";
+    String names[] = {};
+    Bundle b = new Bundle();
 
 
     int images[] = {R.drawable.artists, R.drawable.dj2, R.drawable.workshop};
@@ -61,6 +63,7 @@ public class DetailActivity extends AppCompatActivity implements NavigationView.
         helper = DatabaseHelper.getInstance(this);
         String festivalName = getIntent().getStringExtra("festivalName");
         String festivalImage = getIntent().getStringExtra("festivalImage");
+        names = getIntent().getStringArrayExtra("ApplyFestivalNames");
 
         festival = helper.FestivalDao().getFestivalByName(festivalName);
 
@@ -173,13 +176,19 @@ public class DetailActivity extends AppCompatActivity implements NavigationView.
         switch (menuItem.getItemId()){
             case R.id.nav_festivals:
                 Intent intent = new Intent(DetailActivity.this, MasterViewActivity.class);
+                intent.putExtra("ApplyFestivalNames", names);
                 intent.putExtra("colorTheme", color);
                 startActivity(intent);
                 intent.removeExtra("colorTheme");
+                intent.removeExtra("ApplyFestivalNames");
                 break;
             case R.id.nav_map:
+                b.putStringArray("ApplyFestivalNames", names);
+                b.putString("ColorTheme", color);
+                FragmentMaps fragmentMaps = new FragmentMaps();
+                fragmentMaps.setArguments(b);
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new FragmentMaps()).commit();
+                        fragmentMaps).commit();
                 break;
             case R.id.nav_favorites:
                 startActivity(new Intent(getApplicationContext(), FavoritesFragment.class));

@@ -102,9 +102,11 @@ public class FragmentMaps extends Fragment implements OnMapReadyCallback {
                 intent.putExtra("festivalName", festival.name);
                 intent.putExtra("festivalImage", festival.imagePath);
                 intent.putExtra("colorTheme", color);
+                intent.putExtra("ApplyFestivalNames", festivalNames);
                 startActivity(intent);
                 intent.removeExtra("festivalName");
                 intent.removeExtra("festivalImage");
+                intent.removeExtra("ApplyFestivalNames");
                 return  false;
             }
         });
