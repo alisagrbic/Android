@@ -42,6 +42,7 @@ public class FragmentMaps extends Fragment implements OnMapReadyCallback {
     private DatabaseHelper helper;
     List<Festival> festivals = new ArrayList<>();
     String festivalNames[] = {};
+    String color = "";
 
     @Nullable
     @Override
@@ -56,9 +57,9 @@ public class FragmentMaps extends Fragment implements OnMapReadyCallback {
         helper = DatabaseHelper.getInstance(getContext());
 
         festivalNames = getArguments().getStringArray("ApplyFestivalNames");
+        color = getArguments().getString("ColorTheme");
 
         if(festivalNames.length!=0){
-            Log.i("ApplyFestivalNames", festivalNames[0]);
             for(int i=0; i<festivalNames.length; i++){
                 Festival festival = helper.FestivalDao().getFestivalByName(festivalNames[i]);
                 festivals.add(festival);
@@ -94,10 +95,13 @@ public class FragmentMaps extends Fragment implements OnMapReadyCallback {
             public boolean onMarkerClick(Marker marker) {
                 String markerTitile= marker.getTitle();
                 Log.w("aaaaa", markerTitile);
-                Intent intent = new Intent(getContext(), DetailActivity.class);
                 Festival festival = helper.FestivalDao().getFestivalByCity(markerTitile);
+                Log.w("aaaaaa", festival.name);
+                Log.w("aaaaaaa", festival.imagePath);
+                Intent intent = new Intent(getContext(), DetailActivity.class);
                 intent.putExtra("festivalName", festival.name);
                 intent.putExtra("festivalImage", festival.imagePath);
+                intent.putExtra("colorTheme", color);
                 startActivity(intent);
                 intent.removeExtra("festivalName");
                 intent.removeExtra("festivalImage");

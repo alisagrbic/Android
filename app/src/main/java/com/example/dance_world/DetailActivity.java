@@ -16,6 +16,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -45,6 +46,7 @@ public class DetailActivity extends AppCompatActivity implements NavigationView.
     Festival festival, festivalMaster;
     Toolbar toolbar;
     ImageView image;
+    String color = "";
 
 
     int images[] = {R.drawable.artists, R.drawable.dj2, R.drawable.workshop};
@@ -69,13 +71,14 @@ public class DetailActivity extends AppCompatActivity implements NavigationView.
         toolbar = findViewById(R.id.toolbar);
         image = findViewById(R.id.image);
 
-        String color = getIntent().getStringExtra("colorTheme");
+        color = getIntent().getStringExtra("colorTheme");
         ColorDrawable c = new ColorDrawable(Color.parseColor(color));
 
         toolbar.setBackground(c);
 
         int id = getResources().getIdentifier(festivalImage, "drawable", getPackageName());
         image.setImageResource(id);
+
 
         //create adapter instance
         MyAdapter adapter = new MyAdapter(this, mTitle, images);
@@ -170,7 +173,9 @@ public class DetailActivity extends AppCompatActivity implements NavigationView.
         switch (menuItem.getItemId()){
             case R.id.nav_festivals:
                 Intent intent = new Intent(DetailActivity.this, MasterViewActivity.class);
+                intent.putExtra("colorTheme", color);
                 startActivity(intent);
+                intent.removeExtra("colorTheme");
                 break;
             case R.id.nav_map:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,

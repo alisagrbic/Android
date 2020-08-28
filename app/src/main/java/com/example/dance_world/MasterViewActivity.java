@@ -67,7 +67,7 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
      int[] images;
      String names[] = {};
      Bundle b = new Bundle();
-
+     String color = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,7 +89,7 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
         toolbar = findViewById(R.id.toolbar);
         header = findViewById(R.id.header_color);
 
-        final String color = getIntent().getStringExtra("colorTheme");
+        color = getIntent().getStringExtra("colorTheme");
         ColorDrawable c = new ColorDrawable(Color.parseColor(color));
         toolbar.setBackground(c);
 
@@ -345,6 +345,7 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
                 break;
             case R.id.nav_map:
                 b.putStringArray("ApplyFestivalNames", names);
+                b.putString("ColorTheme", color);
                 FragmentMaps fragmentMaps = new FragmentMaps();
                 fragmentMaps.setArguments(b);
                // Toast.makeText(MasterViewActivity.this, "" + names.length, Toast.LENGTH_SHORT).show();
