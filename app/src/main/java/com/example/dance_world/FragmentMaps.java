@@ -1,6 +1,7 @@
 package com.example.dance_world;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewDebug;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
@@ -29,6 +31,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FragmentMaps extends Fragment implements OnMapReadyCallback {
@@ -37,7 +40,8 @@ public class FragmentMaps extends Fragment implements OnMapReadyCallback {
     SupportMapFragment supportMapFragment;
     FusedLocationProviderClient client;
     private DatabaseHelper helper;
-    List<Festival> festivals;
+    List<Festival> festivals = new ArrayList<>();
+    String festivalNames[] = {};
 
     @Nullable
     @Override
@@ -50,8 +54,19 @@ public class FragmentMaps extends Fragment implements OnMapReadyCallback {
         super.onViewCreated(view, savedInstanceState);
 
         helper = DatabaseHelper.getInstance(getContext());
-        festivals = helper.FestivalDao().getAll();
 
+        festivalNames = getArguments().getStringArray("ApplyFestivalNames");
+
+        if(festivalNames.length!=0){
+            Log.i("ApplyFestivalNames", festivalNames[0]);
+            for(int i=0; i<festivalNames.length; i++){
+                Festival festival = helper.FestivalDao().getFestivalByName(festivalNames[i]);
+                festivals.add(festival);
+            }
+        }
+        else {
+            festivals = helper.FestivalDao().getAll();
+        }
         //Assign variable
         supportMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.gmap);
 

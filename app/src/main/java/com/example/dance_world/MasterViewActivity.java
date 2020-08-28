@@ -65,6 +65,8 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
      List<Button> buttons = new ArrayList<>();
      List<ImageButton> buttonsFav = new ArrayList<>();
      int[] images;
+     String names[] = {};
+     Bundle b = new Bundle();
 
 
     @Override
@@ -91,7 +93,7 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
         ColorDrawable c = new ColorDrawable(Color.parseColor(color));
         toolbar.setBackground(c);
 
-        final String names[] = getIntent().getStringArrayExtra("ApplyFestivalNames");
+        names = getIntent().getStringArrayExtra("ApplyFestivalNames");
 
         if(names.length!=0) {
             int size = names.length;
@@ -342,8 +344,12 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
                 startActivity(intent);
                 break;
             case R.id.nav_map:
+                b.putStringArray("ApplyFestivalNames", names);
+                FragmentMaps fragmentMaps = new FragmentMaps();
+                fragmentMaps.setArguments(b);
+               // Toast.makeText(MasterViewActivity.this, "" + names.length, Toast.LENGTH_SHORT).show();
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new FragmentMaps()).commit();
+                        fragmentMaps).commit();
                      break;
             case R.id.nav_favorites:
                 Intent intentFav = new Intent(MasterViewActivity.this, FavoritesFragment.class);
