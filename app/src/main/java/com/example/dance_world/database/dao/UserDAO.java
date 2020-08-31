@@ -30,4 +30,7 @@ public interface UserDAO {
     @Query("SELECT * FROM user WHERE user.`loggedIn` == :state")
     User getLoggedInUser(boolean state);
 
+    @Query("SELECT * FROM user WHERE user.id == :id")
+    User getUserById(Long id);
+
 }

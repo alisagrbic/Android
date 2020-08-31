@@ -18,6 +18,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -53,7 +54,7 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
     private DatabaseHelper helper;
     private DrawerLayout drawer;
     private LinearLayout header;
-    ImageButton settings, liness, imageHeart, imageAddPhoto, favorite;
+    ImageButton settings, liness, imageHeart, imageAddPhoto, favorite, comments;
     ListView ListViewFestival;
     TextView nameUser, nameFestival;
     ImageView image;
@@ -64,6 +65,7 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
 
      List<Button> buttons = new ArrayList<>();
      List<ImageButton> buttonsFav = new ArrayList<>();
+    List<ImageButton> buttonsComments = new ArrayList<>();
      int[] images;
      String names[] = {};
      Bundle b = new Bundle();
@@ -84,6 +86,7 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
         ListViewFestival = findViewById(R.id.ListViewFestival);
         imageHeart = findViewById(R.id.heart);
         favorite = findViewById(R.id.favorite);
+        comments = findViewById(R.id.comments);
         notification = findViewById(R.id.notification);
         nameFestival = findViewById(R.id.nameFestival);
         toolbar = findViewById(R.id.toolbar);
@@ -100,6 +103,8 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
             for(int i=0; i<size; i++){
                 buttons.add(notification);
                 buttonsFav.add(favorite);
+                buttonsComments.add(comments);
+
             }
 
             int i = 0;
@@ -116,7 +121,7 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
             }
 
 
-            MyAdapter adapter = new MyAdapter(this, names, buttons, images, buttonsFav);
+            MyAdapter adapter = new MyAdapter(this, names, buttons, images, buttonsFav, buttonsComments);
             ListViewFestival.setAdapter(adapter);
         }
         else {
@@ -124,6 +129,7 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
             for (int i = 0; i < size; i++) {
                 buttons.add(notification);
                 buttonsFav.add(favorite);
+                buttonsComments.add(comments);
             }
 
             int i = 0;
@@ -134,7 +140,7 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
                 i++;
             }
 
-            MyAdapter adapter = new MyAdapter(this, helper.FestivalDao().getAllNames(), buttons, images, buttonsFav);
+            MyAdapter adapter = new MyAdapter(this, helper.FestivalDao().getAllNames(), buttons, images, buttonsFav, buttonsComments);
             ListViewFestival.setAdapter(adapter);
         }
         //create adapter instance
@@ -242,14 +248,16 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
         List<Button> buttons;
         int rImgs[];
         List<ImageButton> buttonsFav;
+        List<ImageButton> buttonsComments;
 
-        MyAdapter(Context c,  String title[],List<Button> btns,  int imgs[], List<ImageButton> fav) {
+        MyAdapter(Context c,  String title[],List<Button> btns,  int imgs[], List<ImageButton> fav, List<ImageButton> com) {
             super(c, R.layout.row_masterview,  R.id.nameFestival, title);
             this.context = c;
             this.rTitle = title;
             this.buttons = btns;
             this.rImgs = imgs;
             this.buttonsFav=fav;
+            this.buttonsComments=com;
         }
 
         @NonNull
@@ -262,12 +270,13 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
             View row = layoutInflater.inflate(R.layout.row_masterview, parent, false);
             ImageView images = row.findViewById(R.id.masterImage);
             final ImageButton myFav= row.findViewById(R.id.favorite);
+            final ImageButton myCom= row.findViewById(R.id.comments);
             TextView myTitle = row.findViewById(R.id.nameFestival);
             Button myButtons= row.findViewById(R.id.notification);
             myTitle.setText(rTitle[position]);
 
             String s = ListViewFestival.getItemAtPosition(position).toString();
-            Festival fest = helper.FestivalDao().getFestivalByName(s);
+            final Festival fest = helper.FestivalDao().getFestivalByName(s);
             for(Favorites f: helper.FavoritesDao().getAll()) {
                 if (f.id_festival == fest.id) {
                     myFav.setImageResource(R.drawable.ic_favorite_black_24dp);
@@ -329,6 +338,17 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
                     //Toast.makeText(getContext(), "" + user.id + festival.id, Toast.LENGTH_SHORT).show();
                 }
            });
+
+            myCom.setOnClickListener(new View.OnClickListener() {
+                                         @RequiresApi(api = Build.VERSION_CODES.O)
+                                         @Override
+                                         public void onClick(View v) {
+                                             Intent intent = new Intent(MasterViewActivity.this, CommentsActivity.class);
+                                             intent.putExtra("FestivalId", fest.id);
+                                             startActivity(intent);
+                                             intent.removeExtra("FestivalId");
+                                         }
+                                     });
 
             images.setImageResource(rImgs[position]);
            // myFav.setBottom(buttonsFav[position]);
@@ -411,6 +431,7 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
             image.setImageURI(data.getData());
             User user = helper.UserDao().getLoggedInUser(true);
             user.setImage(data.getDataString());
+            Log.w("aaaaaaaaa", String.valueOf(data.getData()));
             helper.UserDao().updateUser(user);
         }
     }

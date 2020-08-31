@@ -3,6 +3,7 @@ package com.example.dance_world.database;
 import android.content.Context;
 
 import com.example.dance_world.database.dao.ArtistDAO;
+import com.example.dance_world.database.dao.CommentDAO;
 import com.example.dance_world.database.dao.DjDAO;
 import com.example.dance_world.database.dao.FavoritesDAO;
 import com.example.dance_world.database.dao.FestivalDAO;
@@ -11,6 +12,7 @@ import com.example.dance_world.database.dao.TicketDAO;
 import com.example.dance_world.database.dao.UserDAO;
 import com.example.dance_world.database.entities.Artist;
 import com.example.dance_world.database.entities.ArtistFestival;
+import com.example.dance_world.database.entities.Comment;
 import com.example.dance_world.database.entities.Dj;
 import com.example.dance_world.database.entities.DjFestival;
 import com.example.dance_world.database.entities.Favorites;
@@ -33,14 +35,15 @@ import androidx.room.RoomDatabase;
                         UserFestival.class,
                         DjFestival.class,
                         ArtistFestival.class,
-                        Favorites.class
+                        Favorites.class,
+                        Comment.class
         },
         version = 12,
         exportSchema = false)
 //@TypeConverters({GenreConverter.class})
 public abstract class DatabaseHelper extends RoomDatabase {
 
-    private static final String DATABASE_NAME = "PlesBaza.db";
+    private static final String DATABASE_NAME = "plesnaAplikacija.db";
     public static  DatabaseHelper instance;
 
     public static synchronized DatabaseHelper getInstance(Context context) {
@@ -63,4 +66,5 @@ public abstract class DatabaseHelper extends RoomDatabase {
     public abstract DjDAO DjDao();
     public abstract ArtistDAO ArtistDao();
     public abstract FavoritesDAO FavoritesDao();
+    public abstract CommentDAO CommentDAO();
 }
