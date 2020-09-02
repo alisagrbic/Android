@@ -1,15 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ArtistsActivity">
 
-    <ListView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/ListView"></ListView>
+        tools:context=".ArtistsActivity">
+
+        <include
+            android:id="@+id/include"
+            layout="@layout/activity_toolbar" />
+
+        <ImageButton
+            android:id="@+id/openAddArtistDialog"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/add_btn"
+            android:scaleType="fitCenter"
+            android:background="@android:color/transparent"
+            android:layout_marginTop="50dp"
+            app:layout_constraintBottom_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/ListView" />
+
+        <ListView
+            android:id="@+id/ListView"
+            android:layout_width="406dp"
+            android:layout_height="651dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/openAddArtistDialog"></ListView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-</LinearLayout>
+</androidx.drawerlayout.widget.DrawerLayout>
