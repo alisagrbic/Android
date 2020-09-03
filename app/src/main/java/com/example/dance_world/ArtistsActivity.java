@@ -24,6 +24,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,6 +32,7 @@ import android.widget.Toast;
 import com.example.dance_world.database.DatabaseHelper;
 import com.example.dance_world.database.entities.Artist;
 import com.example.dance_world.database.entities.User;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.List;
 import java.util.zip.Inflater;
@@ -85,37 +87,37 @@ public class ArtistsActivity extends AppCompatActivity {
                 final EditText editText = (EditText) viewDialog.findViewById(R.id.artistName);
                 imageAddPhoto = (ImageButton) findViewById(R.id.imageAddPhoto);
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(ArtistsActivity.this)
-                                                    .setView(viewDialog)
-                                                    .setPositiveButton("Save", new DialogInterface.OnClickListener() {
-                                                        @Override
-                                                        public void onClick(DialogInterface dialogInterface, int i) {
-                                                            String artistName = editText.getText().toString();
-                                                            newArtist.name = artistName;
+//                imageAddPhoto.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M){
+//                            if(checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+//                                    == PackageManager.PERMISSION_DENIED) {
+//                                //permission not granted, request it.
+//                                String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE};
+//                                //show popup for runtime premission
+//                                requestPermissions(permissions, PERMISSION_CODE);
+//                            }
+//                            else{
+//                                //permission already granted
+//                                pickImageFromGallery();
+//                            }
+//                        }else {
+//                            //system os is less then marshmallow
+//                            pickImageFromGallery();
+//                        }
+//                    }
+//                });
 
-                                                            imageAddPhoto.setOnClickListener(new View.OnClickListener() {
-                                                                @Override
-                                                                public void onClick(View v) {
-                                                                    if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M){
-                                                                        if(checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
-                                                                                == PackageManager.PERMISSION_DENIED) {
-                                                                            //permission not granted, request it.
-                                                                            String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE};
-                                                                            //show popup for runtime premission
-                                                                            requestPermissions(permissions, PERMISSION_CODE);
-                                                                        }
-                                                                        else{
-                                                                            //permission already granted
-                                                                            pickImageFromGallery();
-                                                                        }
-                                                                    }else {
-                                                                        //system os is less then marshmallow
-                                                                        pickImageFromGallery();
-                                                                    }
-                                                                }
-                                                            });
-                                                        }
-                                                    });
+                AlertDialog.Builder builder = new AlertDialog.Builder(ArtistsActivity.this)
+                        .setView(viewDialog)
+                        .setPositiveButton("Save", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                String artistName = editText.getText().toString();
+                                newArtist.name = artistName;
+                            }
+                        });
 
                 AlertDialog dialog = builder.create();
                 dialog.show();
