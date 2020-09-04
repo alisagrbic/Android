@@ -74,6 +74,7 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
     List<String> namesOfFestivals = new ArrayList<>();
     String strings[] = {};
     Bundle b = new Bundle();
+    String selectedDance;
 
 
     @Override
@@ -277,6 +278,19 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
         ArrayAdapter<String> adapterDance = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, dance);
         dance_spinner.setAdapter(adapterDance);
 
+        dance_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                String selectedItem = parent.getItemAtPosition(position).toString();
+                selectedDance = selectedItem;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
         Apply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -291,7 +305,9 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
 
                 intent.putExtra("ApplyFestivalNames", strings);
                 intent.putExtra("colorTheme", col.toString());
+                intent.putExtra("danceType", selectedDance);
                 startActivity(intent);
+                intent.removeExtra("danceType");
                 intent.removeExtra("colorTheme");
                 intent.removeExtra("ApplyFestivalNames");
             }

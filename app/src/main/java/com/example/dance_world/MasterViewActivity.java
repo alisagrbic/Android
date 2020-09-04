@@ -70,6 +70,7 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
      String names[] = {};
      Bundle b = new Bundle();
      String color = "";
+     String danceType= "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,8 +96,10 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
         color = getIntent().getStringExtra("colorTheme");
         ColorDrawable c = new ColorDrawable(Color.parseColor(color));
         toolbar.setBackground(c);
+        danceType = getIntent().getStringExtra("danceType");
 
         names = getIntent().getStringArrayExtra("ApplyFestivalNames");
+
 
         if(names.length!=0) {
             int size = names.length;
