@@ -20,9 +20,9 @@ public class DatabaseInitializer {
 
     public void InitData() {
         helper = DatabaseHelper.getInstance(context);
-        User user1 = new User("Alisa", "Grbic", "alisic", "alisa.grbic@gmail.com", "alisa123", 100, false, "");
-        User user2 = new User("Maja", "Grubor", "maja", "maja.grubor@gmail.com", "maja123", 70, false, "");
-        User user3 = new User("Milica", "Tomic", "milica", "milica.tomic@gmail.com", "milica123", 120, false, "");
+        User user1 = new User("Alisa", "Grbic", "alisic", "alisa.grbic@gmail.com", "alisa123", 100, false, "", true);
+        User user2 = new User("Maja", "Grubor", "maja", "maja.grubor@gmail.com", "maja123", 70, false, "", false);
+        User user3 = new User("Milica", "Tomic", "milica", "milica.tomic@gmail.com", "milica123", 120, false, "", false);
         helper.UserDao().insertUser(user1);
         helper.UserDao().insertUser(user2);
         helper.UserDao().insertUser(user3);

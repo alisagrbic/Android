@@ -44,11 +44,14 @@ public class User{
     @ColumnInfo(name = "loggedIn")
     public boolean loggedIn;
 
+    @ColumnInfo(name = "isAdmin")
+    public boolean isAdmin;
+
    /* @ColumnInfo(name = "favorites")
     @TypeConverters(GenreConverter.class)
     private List<String> favorites;*/
 
-    public User(String name, String surname, String username, String email, String password, int perimeter, boolean loggedIn, String image) {
+    public User(String name, String surname, String username, String email, String password, int perimeter, boolean loggedIn, String image, boolean isAdmin) {
         this.name = name;
         this.surname = surname;
         this.username = username;
@@ -57,6 +60,7 @@ public class User{
         this.perimeter = perimeter;
         this.loggedIn = loggedIn;
         this.image=image;
+        this.isAdmin=isAdmin;
        // this.favorites=favorites;
     }
 
@@ -77,19 +81,16 @@ public class User{
     public long getId() {
         return id;
     }
-
     public void setId(long id) {
         this.id = id;
     }
 
     public String getName() { return name; }
-
     public void setName(String name) {
         this.name = name;
     }
 
     public String getSurname() { return surname; }
-
     public void setSurname(String surname) {
         this.surname = surname;
     }
@@ -97,7 +98,6 @@ public class User{
     public String getUsername() {
         return username;
     }
-
     public void setUsername(String username) {
         this.username = username;
     }
@@ -105,7 +105,6 @@ public class User{
     public String getEmail() {
         return email;
     }
-
     public void setEmail(String email) {
         this.email = email;
     }
@@ -113,21 +112,21 @@ public class User{
     public String getPassword() {
         return password;
     }
-
     public void setPassword(String password) {
         this.password = password;
     }
 
     public int getPerimeter() { return perimeter; }
-
     public void setPerimeter(int perimeter) { this.perimeter = perimeter; }
 
     public boolean isLoggedIn() { return loggedIn; }
-
     public void setLoggedIn(boolean loggedIn) { this.loggedIn = loggedIn; }
 
-    public String getImage() { return image; }
+    public boolean isAdmin() { return isAdmin; }
+    public void setIsAdmin(boolean isAdmin) { this.isAdmin = isAdmin; }
 
+
+    public String getImage() { return image; }
     public void setImage(String image) { this.image = image; }
 
     /*public List<String> getFavorites() { return favorites; }
