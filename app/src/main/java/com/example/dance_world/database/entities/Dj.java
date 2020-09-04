@@ -19,6 +19,8 @@ public class Dj {
     @ColumnInfo(name = "id_festival", index = true)
     public long id_festival;
 
+    public Dj()  {}
+
     public Dj(String name, String surname, long id_festival) {
         this.name = name;
         this.surname = surname;

@@ -166,9 +166,6 @@ public class ArtistsActivity extends AppCompatActivity {
             uploadedImage.setImageURI(data.getData());
             int a = this.getResources().getIdentifier(String.valueOf(data.getData()), "drawable", getPackageName());
             newArtist.setImagePath(data.filterHashCode());
-            //User user = helper.UserDao().getLoggedInUser(true);
-            //user.setImage(data.getDataString());
-            //helper.UserDao().updateUser(user);
         }
     }
 

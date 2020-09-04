@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="15dp"
-        android:text="Add artist"
+        android:text="Add DJ"
         android:textSize="18sp"
         android:textStyle="bold"/>
 
@@ -21,30 +21,6 @@
         android:layout_marginBottom="10dp"
         android:background="@color/black_de"
         android:layout_width="match_parent" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="5dp">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/image"
-            android:layout_width="125dp"
-            android:layout_height="95dp"
-            android:src="@drawable/ic_launcher_foreground"/>
-
-        <ImageButton
-            android:id="@+id/imageAddPhoto"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="10dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_add_circle_black_24dp"
-            android:background="@android:color/transparent"
-            android:layout_marginLeft="10dp" />
-
-    </LinearLayout>
 
     <View
         android:layout_width="match_parent"
@@ -65,12 +41,34 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/artistName"
-            android:hint="Artist Name"
+            android:id="@+id/djName"
+            android:hint="DJ Name"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="12dp"
+        >
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/music"
+            android:hint="Type of music"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp" />
+
     </LinearLayout>
 
 

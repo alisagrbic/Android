@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 public class WorkshopActivity extends AppCompatActivity {
 
     ListView listView;
+    ImageButton openDialog;
     String mTitle[] = {"Kizomba", "Sensual Bachata", "Kizomba Fusion"};
     String mDescription[] = {"Slow moves, slides and lifts \n\n19. June 13:00-14:00",
     "Fundamentals \n\n19. June 14:10-15:10", "Fundamentals and evlolution \n\n19. June 15:20-16:20"};
