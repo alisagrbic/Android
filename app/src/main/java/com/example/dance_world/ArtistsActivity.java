@@ -55,7 +55,7 @@ public class ArtistsActivity extends AppCompatActivity {
     ImageButton imageAddPhoto;
     private static final int IMAGE_PICK_CODE=1000;
     private static final int PERMISSION_CODE=1001;
-    Artist newArtist;
+    Artist newArtist = new Artist();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +65,7 @@ public class ArtistsActivity extends AppCompatActivity {
 
         openDialog = findViewById(R.id.openAddArtistDialog);
 
-        String festivalId = getIntent().getStringExtra("festivalId");
+        final String festivalId = getIntent().getStringExtra("festivalId");
         artists = helper.ArtistDao().getArtistByFestivalId(Long.parseLong(festivalId));
         imageAddPhoto = (ImageButton) findViewById(R.id.imageAddPhoto);
 
@@ -124,6 +124,8 @@ public class ArtistsActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 String artistName = editText.getText().toString();
                                 newArtist.name = artistName;
+                                newArtist.id_festival = Long.parseLong(festivalId);
+                                helper.ArtistDao().insertArtist(newArtist);
                             }
                         });
 
@@ -162,8 +164,8 @@ public class ArtistsActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK && requestCode == IMAGE_PICK_CODE) {
             //set image to image view
             uploadedImage.setImageURI(data.getData());
-            //newArtist.setImagePath();
-            helper.ArtistDao().insertArtist(newArtist);
+            int a = this.getResources().getIdentifier(String.valueOf(data.getData()), "drawable", getPackageName());
+            newArtist.setImagePath(data.filterHashCode());
             //User user = helper.UserDao().getLoggedInUser(true);
             //user.setImage(data.getDataString());
             //helper.UserDao().updateUser(user);

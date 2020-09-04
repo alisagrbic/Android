@@ -22,6 +22,8 @@ public class Artist {
     @ColumnInfo(name = "id_festival", index = true)
     public long id_festival;
 
+    public Artist() {}
+
     public Artist(String name, String surname, long id_festival, int imagePath) {
         this.name = name;
         this.surname = surname;
