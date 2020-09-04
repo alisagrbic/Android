@@ -120,7 +120,9 @@ public class DetailActivity extends AppCompatActivity implements NavigationView.
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(DetailActivity.this, SettingsActivity.class);
+                intent.putExtra("colorTheme", color);
                 startActivity(intent);
+                intent.removeExtra("colorTheme");
             }
         });
 

@@ -225,10 +225,8 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
             public void onClick(View v) {
                 Intent intent = new Intent(MasterViewActivity.this, SettingsActivity.class);
                 intent.putExtra("colorTheme", color);
-                intent.putExtra("ApplyFestivalNames", names);
                 startActivity(intent);
                 intent.removeExtra("colorTheme");
-                intent.removeExtra("ApplyFestivalNames");
             }
         });
 
