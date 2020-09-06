@@ -43,7 +43,7 @@ import androidx.room.RoomDatabase;
 //@TypeConverters({GenreConverter.class})
 public abstract class DatabaseHelper extends RoomDatabase {
 
-    private static final String DATABASE_NAME = "bazaPles.db";
+    private static final String DATABASE_NAME = "bazaPless.db";
     public static  DatabaseHelper instance;
 
     public static synchronized DatabaseHelper getInstance(Context context) {

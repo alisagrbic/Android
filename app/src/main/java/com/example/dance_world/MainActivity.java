@@ -42,12 +42,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
- dbInitializer = new DatabaseInitializer(this);
-  dbInitializer.InitData();
+
   //      Toolbar toolbar = findViewById(R.id.toolbar);
    //     setSupportActionBar(toolbar);
 
         helper = DatabaseHelper.getInstance(this);
+
+        List<User> users =  helper.UserDao().getAll();
+        if(users.isEmpty()) {
+            dbInitializer = new DatabaseInitializer(this);
+            dbInitializer.InitData();
+        }
 
        /* for(Artist ar: helper.ArtistDao().getAll())
             helper.ArtistDao().deleteArtist(ar);

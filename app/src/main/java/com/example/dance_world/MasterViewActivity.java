@@ -113,9 +113,12 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
             int i = 0;
             images = new int[names.length];
             List<Festival> festivals = new ArrayList<>();
+
             for(String name: names) {
                 Festival f = helper.FestivalDao().getFestivalByName(name);
-                festivals.add(f);
+                //if(f.danceType.contains(danceType.toLowerCase())) {
+                    festivals.add(f);
+                //}
             }
             for (Festival f : festivals) {
                 int id = getResources().getIdentifier(f.imagePath, "drawable", getPackageName());
