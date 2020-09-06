@@ -48,6 +48,7 @@ public class FavoritesFragment extends AppCompatActivity {
     MyAdapter adapter;
     private DatabaseHelper helper;
     Toolbar toolbar;
+    String color = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +63,6 @@ public class FavoritesFragment extends AppCompatActivity {
 
         buttonDeleteFavorite = findViewById(R.id.buttonDeleteFavorite);
         toolbar = findViewById(R.id.toolbar);
-
 
 
         festivalNames = new String[favorites.size()];

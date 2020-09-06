@@ -37,6 +37,7 @@ import com.example.dance_world.database.entities.Festival;
 import com.example.dance_world.database.entities.User;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.util.ArrayUtils;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
@@ -189,7 +190,6 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
                             namesOfFestivals.add(festival.name);
                         }
                     }
-                    Toast.makeText(SettingsActivity.this, "" + namesOfFestivals.toString(), Toast.LENGTH_LONG).show();
                 }
                 if (selectedItem.equals("1000km")) {
                     // do your stuff
@@ -212,7 +212,6 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
                         }
                     }
                     strings = new String[namesOfFestivals.size()];
-                    Toast.makeText(SettingsActivity.this, "" + namesOfFestivals.toString(), Toast.LENGTH_LONG).show();
                 }
                 if (selectedItem.equals("2000km")) {
                     if (namesOfFestivals.size() != 0)
@@ -234,7 +233,6 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
                         }
                     }
                     strings = new String[namesOfFestivals.size()];
-                    Toast.makeText(SettingsActivity.this, "" + namesOfFestivals.toString(), Toast.LENGTH_LONG).show();
                 }
                 if (selectedItem.equals("5000km")) {
                     if (namesOfFestivals.size() != 0)
@@ -256,7 +254,6 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
                         }
                     }
                     strings = new String[namesOfFestivals.size()];
-                    Toast.makeText(SettingsActivity.this, "" + namesOfFestivals.toString(), Toast.LENGTH_LONG).show();
                 }
                 if (selectedItem.equals("All")) {
                     if (namesOfFestivals.size() != 0)
@@ -267,7 +264,6 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
                         namesOfFestivals.add(festival.name);
                     }
                     strings = new String[namesOfFestivals.size()];
-                    Toast.makeText(SettingsActivity.this, "" + namesOfFestivals.toString(), Toast.LENGTH_LONG).show();
                 }
             } // to close the onItemSelected
 
@@ -285,6 +281,29 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
 
                 String selectedItem = parent.getItemAtPosition(position).toString();
                 selectedDance = selectedItem;
+
+                List<String> lista = new ArrayList<>();
+                int i=0;
+                if(namesOfFestivals.size()!=0) {
+                    for (Festival festival : helper.FestivalDao().getAll()) {
+                        if(festival.name.contains(namesOfFestivals.get(i))){
+                            if(festival.danceType.contains(selectedDance.toLowerCase())){
+                                lista.add(festival.name);
+                                i++;
+                            }else{
+                                i++;
+                            }
+                        }
+                    }
+
+                    namesOfFestivals.removeAll(namesOfFestivals);
+
+                    for (String s : lista) {
+                        namesOfFestivals.add(s);
+                    }
+
+                    strings = new String[namesOfFestivals.size()];
+                }
             }
 
             @Override
@@ -296,19 +315,16 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(SettingsActivity.this, MasterViewActivity.class);
-
                 int i = 0;
                 for (String name : namesOfFestivals) {
                     strings[i] = name;
                     i++;
                 }
 
+                Intent intent = new Intent(SettingsActivity.this, MasterViewActivity.class);
                 intent.putExtra("ApplyFestivalNames", strings);
                 intent.putExtra("colorTheme", col.toString());
-                intent.putExtra("danceType", selectedDance);
                 startActivity(intent);
-                intent.removeExtra("danceType");
                 intent.removeExtra("colorTheme");
                 intent.removeExtra("ApplyFestivalNames");
             }

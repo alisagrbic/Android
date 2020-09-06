@@ -96,7 +96,6 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
         color = getIntent().getStringExtra("colorTheme");
         ColorDrawable c = new ColorDrawable(Color.parseColor(color));
         toolbar.setBackground(c);
-        danceType = getIntent().getStringExtra("danceType");
 
         names = getIntent().getStringArrayExtra("ApplyFestivalNames");
 
@@ -114,11 +113,9 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
             images = new int[names.length];
             List<Festival> festivals = new ArrayList<>();
 
-            for(String name: names) {
+           for(String name: names) {
                 Festival f = helper.FestivalDao().getFestivalByName(name);
-                //if(f.danceType.contains(danceType.toLowerCase())) {
-                    festivals.add(f);
-                //}
+                festivals.add(f);
             }
             for (Festival f : festivals) {
                 int id = getResources().getIdentifier(f.imagePath, "drawable", getPackageName());
@@ -382,7 +379,9 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
                      break;
             case R.id.nav_favorites:
                 Intent intentFav = new Intent(MasterViewActivity.this, FavoritesFragment.class);
+                intentFav.putExtra("colorTheme", color);
                 startActivity(intentFav);
+                intentFav.removeExtra("colorTheme");
                 break;
             case R.id.nav_Logout:
 
