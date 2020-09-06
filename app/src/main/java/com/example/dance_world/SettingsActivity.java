@@ -10,6 +10,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
@@ -125,7 +126,7 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
 
 
         String[] theme = new String[]{"App theme", "Color picker"};
-        String[] perimeter = new String[]{"Perimeter","500km", "1000km", "2000km", "5000km", "All"};
+        String[] perimeter = new String[]{"Perimeter", "500km", "1000km", "2000km", "5000km", "All"};
         String[] dance = new String[]{"Dance", "Banchata", "Kizomba", "Salsa"};
 
         ArrayAdapter<String> adapterTheme = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, theme);
@@ -170,7 +171,7 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItem = parent.getItemAtPosition(position).toString();
                 if (selectedItem.equals("500km")) {
-                    if(namesOfFestivals.size()!=0)
+                    if (namesOfFestivals.size() != 0)
                         namesOfFestivals.removeAll(namesOfFestivals);
 
                     festivals = helper.FestivalDao().getAll();
@@ -192,7 +193,7 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
                 }
                 if (selectedItem.equals("1000km")) {
                     // do your stuff
-                    if(namesOfFestivals.size()!=0)
+                    if (namesOfFestivals.size() != 0)
                         namesOfFestivals.removeAll(namesOfFestivals);
 
                     festivals = helper.FestivalDao().getAll();
@@ -200,13 +201,13 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
                     loc.setLatitude(currentLatitude);
                     loc.setLongitude(currentLongitude);
                     Location loc1 = new Location("");
-                    for(Festival festival: festivals) {
+                    for (Festival festival : festivals) {
                         loc1.setLatitude(festival.gps_latitude);
                         loc1.setLongitude(festival.gps_longitude);
                         float distanceInMeters = loc.distanceTo(loc1);
-                        float distanceInKm = distanceInMeters/1000;
+                        float distanceInKm = distanceInMeters / 1000;
                         float dist = 1000;
-                        if(distanceInKm <= dist) {
+                        if (distanceInKm <= dist) {
                             namesOfFestivals.add(festival.name);
                         }
                     }
@@ -214,7 +215,7 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
                     Toast.makeText(SettingsActivity.this, "" + namesOfFestivals.toString(), Toast.LENGTH_LONG).show();
                 }
                 if (selectedItem.equals("2000km")) {
-                    if(namesOfFestivals.size()!=0)
+                    if (namesOfFestivals.size() != 0)
                         namesOfFestivals.removeAll(namesOfFestivals);
 
                     festivals = helper.FestivalDao().getAll();
@@ -222,13 +223,13 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
                     loc.setLatitude(currentLatitude);
                     loc.setLongitude(currentLongitude);
                     Location loc1 = new Location("");
-                    for(Festival festival: festivals) {
+                    for (Festival festival : festivals) {
                         loc1.setLatitude(festival.gps_latitude);
                         loc1.setLongitude(festival.gps_longitude);
                         float distanceInMeters = loc.distanceTo(loc1);
-                        float distanceInKm = distanceInMeters/1000;
+                        float distanceInKm = distanceInMeters / 1000;
                         float dist = 2000;
-                        if(distanceInKm <= dist) {
+                        if (distanceInKm <= dist) {
                             namesOfFestivals.add(festival.name);
                         }
                     }
@@ -236,7 +237,7 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
                     Toast.makeText(SettingsActivity.this, "" + namesOfFestivals.toString(), Toast.LENGTH_LONG).show();
                 }
                 if (selectedItem.equals("5000km")) {
-                    if(namesOfFestivals.size()!=0)
+                    if (namesOfFestivals.size() != 0)
                         namesOfFestivals.removeAll(namesOfFestivals);
 
                     festivals = helper.FestivalDao().getAll();
@@ -244,13 +245,13 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
                     loc.setLatitude(currentLatitude);
                     loc.setLongitude(currentLongitude);
                     Location loc1 = new Location("");
-                    for(Festival festival: festivals) {
+                    for (Festival festival : festivals) {
                         loc1.setLatitude(festival.gps_latitude);
                         loc1.setLongitude(festival.gps_longitude);
                         float distanceInMeters = loc.distanceTo(loc1);
-                        float distanceInKm = distanceInMeters/1000;
+                        float distanceInKm = distanceInMeters / 1000;
                         float dist = 5000;
-                        if(distanceInKm <= dist) {
+                        if (distanceInKm <= dist) {
                             namesOfFestivals.add(festival.name);
                         }
                     }
@@ -258,11 +259,11 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
                     Toast.makeText(SettingsActivity.this, "" + namesOfFestivals.toString(), Toast.LENGTH_LONG).show();
                 }
                 if (selectedItem.equals("All")) {
-                    if(namesOfFestivals.size()!=0)
+                    if (namesOfFestivals.size() != 0)
                         namesOfFestivals.removeAll(namesOfFestivals);
 
                     festivals = helper.FestivalDao().getAll();
-                    for(Festival festival: festivals) {
+                    for (Festival festival : festivals) {
                         namesOfFestivals.add(festival.name);
                     }
                     strings = new String[namesOfFestivals.size()];
@@ -297,8 +298,8 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
 
                 Intent intent = new Intent(SettingsActivity.this, MasterViewActivity.class);
 
-                int i=0;
-                for(String name: namesOfFestivals) {
+                int i = 0;
+                for (String name : namesOfFestivals) {
                     strings[i] = name;
                     i++;
                 }
@@ -423,9 +424,19 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
      */
     @Override
     public void onConnected(Bundle bundle) {
-        Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+        @SuppressLint("MissingPermission") Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
 
         if (location == null) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return;
+            }
             LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
 
         } else {

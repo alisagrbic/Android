@@ -32,18 +32,34 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.dance_world.database.DatabaseHelper;
 import com.example.dance_world.database.entities.Artist;
 import com.example.dance_world.database.entities.User;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.gson.JsonObject;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.net.URI;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.zip.Inflater;
 
 public class ArtistsActivity extends AppCompatActivity {
 
+    private RequestQueue mRequestQue;
+    private String URL = "https://fcm.googleapis.com/fcm/send";
     private DatabaseHelper helper;
     ImageButton openDialog;
     List<Artist> artists;
@@ -62,8 +78,9 @@ public class ArtistsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_artists);
         helper = DatabaseHelper.getInstance(this);
-
+        mRequestQue = Volley.newRequestQueue(this);
         openDialog = findViewById(R.id.openAddArtistDialog);
+        FirebaseMessaging.getInstance().subscribeToTopic("news");
 
         final String festivalId = getIntent().getStringExtra("festivalId");
         artists = helper.ArtistDao().getArtistByFestivalId(Long.parseLong(festivalId));
@@ -85,6 +102,8 @@ public class ArtistsActivity extends AppCompatActivity {
         //create adapter instance
         MyAdapter adapter = new MyAdapter(this, mTitle, mDescription, images);
         listView.setAdapter(adapter);
+
+
 
         openDialog.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,17 +141,59 @@ public class ArtistsActivity extends AppCompatActivity {
                         .setPositiveButton("Save", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
+                                SendNotification();
                                 String artistName = editText.getText().toString();
                                 newArtist.name = artistName;
                                 newArtist.id_festival = Long.parseLong(festivalId);
                                 helper.ArtistDao().insertArtist(newArtist);
                             }
+
                         });
 
                 AlertDialog dialog = builder.create();
                 dialog.show();
+
+
             }
         });
+    }
+
+    private void SendNotification() {
+        JSONObject jsonObject = new JSONObject();
+       // jsonObject = null;
+        try {
+            jsonObject.put("to", "/topics/" + "news");
+            JSONObject notObj = new JSONObject();
+            notObj.put("title","Artist on festival");
+            notObj.put("body","Look which artist is arrive on festival!");
+            jsonObject.put("notification",notObj);
+
+            JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, URL,
+                    jsonObject,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            //code here will run on success
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    //code here sill run on error
+                }
+            }
+            ){
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String,String> header = new HashMap<>();
+                    header.put("content-type","application/json");
+                    header.put("authorization", "key=AAAA4oFZots:APA91bGlq1T3qI1eKrJ6cCFHeCa3EAGM5tpdsLJeJEsgC1U-xPoE8tL5-acpB_iEV6nc3w-EicN0VO2doW8qhG1UqwFVJbsW6irT7C3L4JL0TUH3_v3hXADyY1SlZ1vZdl62nZBd-Uom");
+                    return header;
+                }
+            };
+            mRequestQue.add(request);
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
     }
 
     private void pickImageFromGallery() {

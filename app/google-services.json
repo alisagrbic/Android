@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "972832744155",
+    "firebase_url": "https://danceworld-595fd.firebaseio.com",
+    "project_id": "danceworld-595fd",
+    "storage_bucket": "danceworld-595fd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:972832744155:android:146c9a860511fcc10862fe",
+        "android_client_info": {
+          "package_name": "com.example.dance_world"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "972832744155-j3odb1hrc7hbgr78tmq3pbr80nt6j05c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyChSiGKZb3tN4vuNoGOtQhxN9th3bZ1rTQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "972832744155-j3odb1hrc7hbgr78tmq3pbr80nt6j05c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

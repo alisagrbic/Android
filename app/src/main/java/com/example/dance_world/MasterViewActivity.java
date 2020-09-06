@@ -148,9 +148,6 @@ public class MasterViewActivity  extends AppCompatActivity implements Navigation
         }
         //create adapter instance
 
-
-
-
         ListViewFestival.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
